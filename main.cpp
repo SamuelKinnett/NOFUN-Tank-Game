@@ -33,8 +33,8 @@ int main(int argc, char** argv)
     GLFWwindow* window;
     glfwSetErrorCallback(error_callback);
 
-    int width = 640, height = 480;
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    int width = mode->width/2, height = mode->height/2;
     int posX = mode->width/2-width/2, posY = mode->height/2-height/2;
 
     window = glfwCreateWindow(width, height, "NOFUN Tank Game", NULL, NULL);
