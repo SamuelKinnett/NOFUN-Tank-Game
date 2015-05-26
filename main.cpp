@@ -9,6 +9,7 @@ static void error_callback(int error, const char* description)
 {
     fputs(description, stderr);
 }
+
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -46,6 +47,7 @@ int main(int argc, char** argv)
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
 
+    double tankX = 50, tankY = 50; //keep tank position
     while(!glfwWindowShouldClose(window))
     {
         glfwGetFramebufferSize(window, &width, &height);
@@ -58,6 +60,34 @@ int main(int argc, char** argv)
 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
+
+        glColor3d(0.0,0.0,0.0);
+        glBegin(GL_QUADS);
+        {
+            glVertex2d(tankX, tankY);
+            glVertex2d(tankX+50, tankY);
+            glVertex2d(tankX+50, tankY+20);
+            glVertex2d(tankX, tankY+20);
+        }
+        glEnd();
+
+        double xmov = 0.15, ymov = 0.07; //how much to move the tank in the directions
+        if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        {
+            tankY-=ymov;
+        }
+        if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        {
+            tankY+=ymov;
+        }
+        if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        {
+            tankX-=xmov;
+        }
+        if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        {
+            tankX+=xmov;
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
