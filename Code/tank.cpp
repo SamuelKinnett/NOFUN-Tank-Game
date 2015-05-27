@@ -13,8 +13,7 @@
 #define DEGREES_TO_RADIANS 0.0174532925f
 
 //A class describing a tank
-class Tank
-{
+class Tank {
    //General Information
    float hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
    //The angle that the hull and turret are facing, in radians, and the
@@ -24,11 +23,11 @@ class Tank
    int hp, maxHP;
    //The health points that the tank has currently and the absolute maximum
    //health
-   float[3] armour;
+   float armour [3];
    //The armour of the tank, in the format front, sides, rear
 
    //Weapon Information
-   int[3] currentAmmo, maxAmmo, damage, penetration;
+   int currentAmmo [3], maxAmmo [3], damage [3], penetration [3];
    //Information about the tank's ammo, in the format AP, APCR, HE
 
    //Engine/Movement Information
@@ -43,12 +42,12 @@ class Tank
       void Traverse(int);
       void Update();
       void RotateTurret(int);
-      void Hit(float, int, int);
-}
+      void Hit(float, int, int, int);
+};
 
 //This method handles moving the tank, given a direction
 //2 = forwards, 1 = backwards, 0 = no input
-void Move(int direction)
+void Tank::Move(int direction)
 {
    float acceleration = (horsepower / weight) / 10;
    //Placeholder equation, recalculating it every time allows for engine damage
@@ -85,7 +84,7 @@ void Move(int direction)
 
 //This method handles traversing the tank, given a direction
 //1 = right, 0 = left
-void Traverse(int direction)
+void Tank::Traverse(int direction)
 {
    switch (direction)
    {
@@ -112,8 +111,9 @@ void Traverse(int direction)
 
 //This method should be called every time the main update loop runs and updates
 //the tank's variables
-void Update()
+void Tank::Update()
 {
+   float acceleration = (horsepower / weight) / 10;
    //Check to see if the tank needs to decelerate
    if (!moving && currentSpeed > 0) {
       //Decelerate
@@ -130,7 +130,7 @@ void Update()
 
 //This method handles traversing the turret, given a direction
 //1 = right, 0 = left
-void RotateTurret(int direction)
+void Tank::RotateTurret(int direction)
 {
    switch (direction)
    {
@@ -161,7 +161,7 @@ void RotateTurret(int direction)
 //enemy shot.
 //areaHit details the area of the tank that was hit. 0 = front, 1 = sides,
 //2 = rear.
-void Hit(float angleOfShot, int damage, int penetration, int areaHit)
+void Tank::Hit(float angleOfShot, int damage, int penetration, int areaHit)
 {
    //TODO: Everything here, currently in progress
 }
