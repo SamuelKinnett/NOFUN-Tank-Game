@@ -1,4 +1,14 @@
 //A class describing a tank
+
+//==============================================================================
+//Include guard
+#ifndef __TANK_INCLUDED__
+#define __TANK_INCLUDED__
+//==============================================================================
+//Included dependancies
+#include <AABB.h>
+//==============================================================================
+//Class definition
 class Tank {
    //General Information
    float hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
@@ -17,16 +27,18 @@ class Tank {
    //Information about the tank's ammo, in the format AP, APCR, HE
 
    //Engine/Movement Information
-   int moving;
-   //Is the tank currently moving? 0 = stationary, 1 = moving
+   bool moving;
+   //Is the tank currently moving?
    float horsepower, weight, currentSpeed, topSpeed;
    //The horsepower of the engine, the weight of the tank, its current speed
    //and its top speed
 
    public:
-      void Move(int);
+      void Move(int, float);
       void Traverse(int);
-      void Update();
+      void Update(float);
       void RotateTurret(int);
       void Hit(float, int, int, int);
 };
+
+#endif

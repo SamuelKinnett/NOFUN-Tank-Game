@@ -1,8 +1,6 @@
 #include <math.h>
 #include <tank.h>
 
-#define TRUE 1
-#define FALSE 0
 #define RIGHT 1
 #define LEFT 0
 #define FORWARDS 2
@@ -14,10 +12,13 @@
 #define DEGREES_TO_RADIANS 0.0174532925f
 
 //This method handles moving the tank, given a direction
-//2 = forwards, 1 = backwards, 0 = no input
-void Tank::Move(int direction)
+//2 = forwards, 1 = backwards, 0 = no input.
+//deltaTime is used to make a simple Eular Integrator to ensure framerate
+//independant acceleration.
+void Tank::Move(int direction, float deltaTime)
 {
    float acceleration = (horsepower / weight) / 10;
+   acceleration *= deltaTime;
    //Placeholder equation, recalculating it every time allows for engine damage
    //and horsepower loss to be reflected in speed
    float reversingSpeed = ((topSpeed * -1) / 4);
@@ -26,7 +27,7 @@ void Tank::Move(int direction)
    {
       case (FORWARDS):
 
-         moving = TRUE;
+         moving = true;
          if (currentSpeed + acceleration < topSpeed)
             currentSpeed += acceleration;
          else
@@ -35,7 +36,7 @@ void Tank::Move(int direction)
 
       case (BACKWARDS):
 
-         moving = TRUE;
+         moving = true;
          if (currentSpeed - acceleration > reversingSpeed)
             currentSpeed -= acceleration;
          else
@@ -44,7 +45,7 @@ void Tank::Move(int direction)
 
       case (STATIONARY):
 
-         moving = FALSE;
+         moving = false;
          break;
    }
 
@@ -79,7 +80,9 @@ void Tank::Traverse(int direction)
 
 //This method should be called every time the main update loop runs and updates
 //the tank's variables
-void Tank::Update()
+//deltaTime is used to make a simple Eular Integrator to ensure framerate
+//independant movement.
+void Tank::Update(float deltaTime)
 {
    float acceleration = (horsepower / weight) / 10;
    //Check to see if the tank needs to decelerate
@@ -92,8 +95,10 @@ void Tank::Update()
    }
 
    //Move the tank
-   positionX += sin (hullFacing * DEGREES_TO_RADIANS) * currentSpeed;
-   positionY += cos (hullFacing * DEGREES_TO_RADIANS) * currentSpeed;
+   positionX += (sin (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
+                  *deltaTime;
+   positionY += (cos (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
+                  *deltaTime;
 }
 
 //This method handles traversing the turret, given a direction
