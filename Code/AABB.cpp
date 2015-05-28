@@ -1,12 +1,12 @@
-#include <AABB.h>
+#include "AABB.h"
 
 //This method checks to see if the passed bounding box will collide with this
 bool AABB::CheckCollision(AABB otherBox)
 {
-	if (this.max[0] < otherBox.min[0] ||
-                this.max[1] < otherBox.min[1] ||
-                this.max[0] > otherBox.max[0] ||
-                this.min[1] > otherBox.max[1])
+	if (max[0] < otherBox.min[0] ||
+                max[1] < otherBox.min[1] ||
+                max[0] > otherBox.max[0] ||
+                min[1] > otherBox.max[1])
             {
                 return false;
             }

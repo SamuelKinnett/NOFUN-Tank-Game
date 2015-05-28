@@ -14,6 +14,6 @@ class AABB {
 	public:
 		bool CheckCollision(AABB);
 		void MoveBB(float, float);
-}
+};
 
 #endif
