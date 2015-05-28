@@ -1,4 +1,6 @@
-doppelte liste
-<- node ->
-
-alle nodes im array
+*.cbp
+*.depend
+*.layout
+*.o
+*.dll
+*.exe
