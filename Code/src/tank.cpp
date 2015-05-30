@@ -1,5 +1,5 @@
 #include <math.h>
-#include "tank.h"
+#include "../include/tank.h"
 
 #define RIGHT 1
 #define LEFT 0

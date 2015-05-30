@@ -1,8 +1,8 @@
 project("NOFUN Tank Game")
 
 
-add_executable(NTG 	../src/main.cpp
-					../src/tank.cpp
-					../src/tank.h
-					../src/AABB.cpp
-					../src/AABB.h)
+add_executable(NTG 	../Code/main.cpp
+					../Code/src/tank.cpp
+					../Code/include/tank.h
+					../Code/src/AABB.cpp
+					../Code/include/AABB.h)
