@@ -11,12 +11,14 @@
 //Class definition
 class Tank {
     public:
+        Tank();
         void Move(int, float);
         void Traverse(int);
         void Update(float);
         void RotateTurret(int);
         void Hit(float, int, int, int);
-
+        double getPosX() { return positionX; }
+        double getPosY() { return positionY; }
     private:
         //General Information
         float hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
