@@ -14,12 +14,12 @@
 Tank::Tank()
 {
     hullFacing = 0;
-    hullTraverseRate = 0.3;
+    hullTraverseRate = 1.5;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
-    horsepower = 1000;
-    weight = 1000;
+    horsepower = 50000;
+    weight = 50;
     currentSpeed = 0;
     topSpeed = 50;
 }
