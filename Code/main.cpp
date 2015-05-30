@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <GLFW/glfw3.h>
+#include "include/tank.h"
 
 const int VERSION = 1;
 
@@ -47,7 +48,10 @@ int main(int argc, char** argv)
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
 
-    double tankX = 50, tankY = 50; //keep tank position
+    Tank tnk;
+    glfwSetTime(0); //reset time before entering game loop
+    char buf[32];
+    double dt = 0; //time
     while(!glfwWindowShouldClose(window))
     {
         glfwGetFramebufferSize(window, &width, &height);
@@ -56,7 +60,7 @@ int main(int argc, char** argv)
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, width, height, 0, -1, +1);
+        glOrtho(0, width, 0, height, -1, +1);
 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -64,30 +68,39 @@ int main(int argc, char** argv)
         glColor3d(0.0,0.0,0.0);
         glBegin(GL_QUADS);
         {
-            glVertex2d(tankX, tankY);
-            glVertex2d(tankX+50, tankY);
-            glVertex2d(tankX+50, tankY+20);
-            glVertex2d(tankX, tankY+20);
+            glVertex2d(tnk.getPosX(), tnk.getPosY());
+            glVertex2d(tnk.getPosX()+50, tnk.getPosY());
+            glVertex2d(tnk.getPosX()+50, tnk.getPosY()+20);
+            glVertex2d(tnk.getPosX(), tnk.getPosY()+20);
         }
         glEnd();
 
-        double xmov = 0.15, ymov = 0.07; //how much to move the tank in the directions
+        dt = glfwGetTime(); //get frametime
+        glfwSetTime(0);
+        sprintf(buf, "%fms", dt*1000);
+        glfwSetWindowTitle(window, buf); //print frametime to window title
+
         if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         {
-            tankY-=ymov;
+            tnk.Move(2, dt);
         }
-        if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        else if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            tankY+=ymov;
+            tnk.Move(1, dt);
+        }
+        else
+        {
+            tnk.Move(0, dt);
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
         {
-            tankX-=xmov;
+            tnk.Traverse(0);
         }
         if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
-            tankX+=xmov;
+            tnk.Traverse(1);
         }
+        tnk.Update(dt);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
