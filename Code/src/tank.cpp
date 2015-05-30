@@ -11,6 +11,19 @@
 #define REAR 2
 #define DEGREES_TO_RADIANS 0.0174532925f
 
+Tank::Tank()
+{
+    hullFacing = 0;
+    hullTraverseRate = 0.3;
+    positionX = positionY = 0;
+    hp = maxHP = 1000;
+    moving = false;
+    horsepower = 1000;
+    weight = 1000;
+    currentSpeed = 0;
+    topSpeed = 50;
+}
+
 //This method handles moving the tank, given a direction
 //2 = forwards, 1 = backwards, 0 = no input.
 //deltaTime is used to make a simple Euler Integrator to ensure framerate
