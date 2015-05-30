@@ -5,7 +5,7 @@
 #ifndef __TANK_INCLUDED__
 #define __TANK_INCLUDED__
 //==============================================================================
-//Included dependancies
+//Included dependencies
 #include "AABB.h"
 //==============================================================================
 //Class definition
