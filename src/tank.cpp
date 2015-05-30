@@ -14,7 +14,7 @@
 //This method handles moving the tank, given a direction
 //2 = forwards, 1 = backwards, 0 = no input.
 //deltaTime is used to make a simple Eular Integrator to ensure framerate
-//independant acceleration.
+//independent acceleration.
 void Tank::Move(int direction, float deltaTime)
 {
    float acceleration = (horsepower / weight) / 10;
