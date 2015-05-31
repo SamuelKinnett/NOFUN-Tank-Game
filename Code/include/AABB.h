@@ -7,7 +7,8 @@
 //==============================================================================
 //Class definition
 
-class AABB {
+class AABB
+{
 	int min[2];	//Top left corner
 	int max[2];	//Bottom right corner
 
