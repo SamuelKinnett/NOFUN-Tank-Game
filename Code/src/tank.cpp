@@ -37,64 +37,58 @@ void Tank::setAcc(float deltaTime)
 //independent acceleration.
 void Tank::Move(int direction, float deltaTime)
 {
-   setAcc(deltaTime);
-   //Placeholder equation, recalculating it every time allows for engine damage
-   //and horsepower loss to be reflected in speed
-   float reversingSpeed = ((topSpeed * -1) / 4);
-   //reversing speed is currently one quarter of the normal top speed
-   switch (direction)
-   {
-      case (FORWARDS):
+    setAcc(deltaTime);
+    //Placeholder equation, recalculating it every time allows for engine damage
+    //and horsepower loss to be reflected in speed
+    float reversingSpeed = ((topSpeed * -1) / 4);
+    //reversing speed is currently one quarter of the normal top speed
+    switch (direction)
+    {
+        case (FORWARDS):
+            moving = true;
+            if (currentSpeed + acceleration < topSpeed)
+                currentSpeed += acceleration;
+            else
+                currentSpeed = topSpeed;
+            break;
 
-         moving = true;
-         if (currentSpeed + acceleration < topSpeed)
-            currentSpeed += acceleration;
-         else
-            currentSpeed = topSpeed;
-         break;
+        case (BACKWARDS):
+            moving = true;
+            if (currentSpeed - acceleration > reversingSpeed)
+                currentSpeed -= acceleration;
+            else
+                currentSpeed = reversingSpeed;
+            break;
 
-      case (BACKWARDS):
-
-         moving = true;
-         if (currentSpeed - acceleration > reversingSpeed)
-            currentSpeed -= acceleration;
-         else
-            currentSpeed = reversingSpeed;
-         break;
-
-      case (STATIONARY):
-
-         moving = false;
-         break;
-   }
-
+        case (STATIONARY):
+            moving = false;
+            break;
+    }
 }
 
 //This method handles traversing the tank, given a direction
 //1 = right, 0 = left
 void Tank::Traverse(int direction)
 {
-   switch (direction)
-   {
-      case (RIGHT):
+    switch (direction)
+    {
+        case (RIGHT):
+            if (hullFacing + hullTraverseRate < (360 * DEGREES_TO_RADIANS))
+                hullFacing += hullTraverseRate;
+            else
+                hullFacing = (hullFacing + hullTraverseRate) -
+                             (360 * DEGREES_TO_RADIANS);
+            break;
 
-         if (hullFacing + hullTraverseRate < (360 * DEGREES_TO_RADIANS))
-            hullFacing += hullTraverseRate;
-         else
-            hullFacing = (hullFacing + hullTraverseRate) -
-                           (360 * DEGREES_TO_RADIANS);
-         break;
+        case (LEFT):
+            if (hullFacing - hullTraverseRate > 0)
+                hullFacing -= hullTraverseRate;
+            else
+                hullFacing = (hullFacing - hullTraverseRate) +
+                             (360 * DEGREES_TO_RADIANS);
 
-      case (LEFT):
-
-         if (hullFacing - hullTraverseRate > 0)
-            hullFacing -= hullTraverseRate;
-         else
-            hullFacing = (hullFacing - hullTraverseRate) +
-                           (360 * DEGREES_TO_RADIANS);
-
-         break;
-   }
+        break;
+    }
 }
 
 //This method should be called every time the main update loop runs and updates
@@ -103,20 +97,20 @@ void Tank::Traverse(int direction)
 //independent movement.
 void Tank::Update(float deltaTime)
 {
-   float acceleration = (horsepower / weight) / 10;
-   //Check to see if the tank needs to decelerate
-   if (!moving && currentSpeed > 0) {
-      //Decelerate
-      if (currentSpeed - (acceleration * 10) > 0)
-         currentSpeed -= (acceleration * 10);
-      else
-         currentSpeed = 0;
-   }
+    float acceleration = (horsepower / weight) / 10;
+    //Check to see if the tank needs to decelerate
+    if (!moving && currentSpeed > 0) {
+        //Decelerate
+        if (currentSpeed - (acceleration * 10) > 0)
+            currentSpeed -= (acceleration * 10);
+        else
+            currentSpeed = 0;
+    }
 
-   //Move the tank
-   positionX += (sin (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
+    //Move the tank
+    positionX += (sin (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
                   *deltaTime;
-   positionY += (cos (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
+    positionY += (cos (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
                   *deltaTime;
 }
 
@@ -124,27 +118,24 @@ void Tank::Update(float deltaTime)
 //1 = right, 0 = left
 void Tank::RotateTurret(int direction)
 {
-   switch (direction)
-   {
-      case (RIGHT):
+    switch (direction)
+    {
+        case (RIGHT):
+            if (turretFacing + turretTraverseRate < (360 * DEGREES_TO_RADIANS))
+                turretFacing += turretTraverseRate;
+            else
+                turretFacing = (turretFacing + turretTraverseRate) -
+                               (360 * DEGREES_TO_RADIANS);
+            break;
 
-         if (turretFacing + turretTraverseRate < (360 * DEGREES_TO_RADIANS))
-            turretFacing += turretTraverseRate;
-         else
-            turretFacing = (turretFacing + turretTraverseRate) -
-                           (360 * DEGREES_TO_RADIANS);
-         break;
-
-      case (LEFT):
-
-         if (turretFacing - turretTraverseRate > 0)
-            turretFacing -= turretTraverseRate;
-         else
-            turretFacing = (turretFacing - turretTraverseRate) +
-                           (360 * DEGREES_TO_RADIANS);
-
-         break;
-   }
+        case (LEFT):
+            if (turretFacing - turretTraverseRate > 0)
+                turretFacing -= turretTraverseRate;
+            else
+                turretFacing = (turretFacing - turretTraverseRate) +
+                               (360 * DEGREES_TO_RADIANS);
+            break;
+    }
 }
 
 //This method handles the tank being hit by an enemy shot
