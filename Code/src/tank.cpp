@@ -10,6 +10,7 @@ Tank::Tank()
     hp = maxHP = 1000;
     moving = false;
     horsepower = 5000;
+    brakeForce = 100;
     weight = 50;
     currentSpeed = 0;
     topSpeed = 500;
@@ -29,6 +30,10 @@ void Tank::moveFwd()
 void Tank::moveBwd()
 {
     moveState = orienter(moveState | orienter::bwd);
+}
+void Tank::moveBrk()
+{
+    moveState = orienter(moveState | orienter::brake);
 }
 void Tank::moveStay()
 {
@@ -64,6 +69,11 @@ void Tank::update(double deltaTime)
         currentSpeed -= acceleration;
         if(currentSpeed < -topSpeed/4)
             currentSpeed = -topSpeed/4;
+    }
+    else if(moveState & brake)
+    {
+        moving = false;
+        currentSpeed *= pow(brakeForce, -deltaTime);
     }
     else if(moveState & stay) //stationary
     {

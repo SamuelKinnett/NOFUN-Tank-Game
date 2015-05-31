@@ -7,6 +7,7 @@
 //==============================================================================
 //Included dependencies
 #include "AABB.h"
+#include <math.h>
 //==============================================================================
 //Class definition
 class Tank
@@ -14,16 +15,22 @@ class Tank
     public:
         Tank();
         void update(double);
+
         void moveFwd();
         void moveBwd();
         void moveStay();
+        void moveBrk();
+
         void traverseLeft();
         void traverseRight();
+
         void RotateTurret(int direction);
         void hit(double, int, int, int);
+
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
         double getHullRotation() { return hullFacing; }
+
         constexpr static double PI = 3.14159265359;
         constexpr static double DEG_TO_RAD = PI/180;
         constexpr static double RAD_TO_DEG = 180/PI;
@@ -36,9 +43,10 @@ class Tank
             fwd = 1<<2,
             bwd = 1<<3,
             stay = 1<<4,
-            front = 1<<5,
-            sides = 1<<6,
-            rear = 1<<7
+            brake = 1<<5,
+            front = 1<<6,
+            sides = 1<<7,
+            rear = 1<<8
         };
     private:
         //moveState is a bit field that represents all move options using an enum
@@ -62,7 +70,7 @@ class Tank
         //Engine/Movement Information
         bool moving;
         //Is the tank currently moving?
-        float horsepower, weight, currentSpeed, topSpeed, acceleration;
+        float horsepower, weight, currentSpeed, topSpeed, acceleration, brakeForce;
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
 };

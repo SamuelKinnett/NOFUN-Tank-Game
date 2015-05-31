@@ -97,6 +97,10 @@ int main(int argc, char** argv)
         {
             tnk.moveBwd();
         }
+        else if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        {
+            tnk.moveBrk();
+        }
         else
         {
             tnk.moveStay();
