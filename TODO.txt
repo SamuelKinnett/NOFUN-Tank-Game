@@ -1,0 +1,12 @@
+- Do we need an event queue?
+	Could allow independent development of e.g. tanks and main
+	If so - can we have it on it's on thread asynchronous from other objects?
+	
+- Implement more precise collision box
+	axis aligned bounding box is enough for rough checking
+
+- Make tanks have a mesh for more detail (GL_TRIANGLE_FAN)
+
+- Prepare tanks for textures
+
+- Do we need subclasses from tanks for TD/Heavy/Med/Light?
