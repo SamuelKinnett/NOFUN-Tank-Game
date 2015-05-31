@@ -4,12 +4,12 @@
 bool AABB::CheckCollision(AABB otherBox)
 {
 	if (max[0] < otherBox.min[0] ||
-                max[1] < otherBox.min[1] ||
-                max[0] > otherBox.max[0] ||
-                min[1] > otherBox.max[1])
-            {
-                return false;
-            }
+        max[1] < otherBox.min[1] ||
+        max[0] > otherBox.max[0] ||
+        min[1] > otherBox.max[1])
+    {
+        return false;
+    }
     return true;
 }
 
