@@ -59,7 +59,7 @@ class Tank
         //moveState is a bit field that represents all move options using an enum
         orienter moveState;
         //General Information
-        double hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
+        double hullRotation, turretFacing, hullTraverseRate, turretTraverseRate;
         //The angle that the hull and turret are facing, in radians, and the
         //rate at which both rotate in radians per tick
         double positionX, positionY;
