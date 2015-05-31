@@ -19,6 +19,8 @@ class Tank {
         void Hit(float, int, int, int);
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
+    protected:
+        void setAcc(float);
     private:
         //General Information
         float hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
@@ -39,7 +41,7 @@ class Tank {
         //Engine/Movement Information
         bool moving;
         //Is the tank currently moving?
-        float horsepower, weight, currentSpeed, topSpeed;
+        float horsepower, weight, currentSpeed, topSpeed, acceleration;
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
 };

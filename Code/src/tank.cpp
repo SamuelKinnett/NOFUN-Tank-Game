@@ -24,14 +24,20 @@ Tank::Tank()
     topSpeed = 50;
 }
 
+void Tank::setAcc(float deltaTime)
+{
+    //TODO: calculate acceleration based on
+    //horsepower, velocity, weight, gear ratio, rpm, ground resistance, ground grip, torque, ...
+    acceleration = (horsepower / weight) / 10 * deltaTime;
+}
+
 //This method handles moving the tank, given a direction
 //2 = forwards, 1 = backwards, 0 = no input.
 //deltaTime is used to make a simple Euler Integrator to ensure framerate
 //independent acceleration.
 void Tank::Move(int direction, float deltaTime)
 {
-   float acceleration = (horsepower / weight) / 10;
-   acceleration *= deltaTime;
+   setAcc(deltaTime);
    //Placeholder equation, recalculating it every time allows for engine damage
    //and horsepower loss to be reflected in speed
    float reversingSpeed = ((topSpeed * -1) / 4);
