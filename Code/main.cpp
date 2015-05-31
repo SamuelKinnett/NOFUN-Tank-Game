@@ -93,17 +93,13 @@ int main(int argc, char** argv)
         {
             tnk.moveFwd();
         }
-        else if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
             tnk.moveBwd();
         }
-        else if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
         {
             tnk.moveBrk();
-        }
-        else
-        {
-            tnk.moveStay();
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
         {

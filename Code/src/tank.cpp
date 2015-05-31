@@ -35,10 +35,6 @@ void Tank::moveBrk()
 {
     moveState = orienter(moveState | orienter::brake);
 }
-void Tank::moveStay()
-{
-    moveState = orienter(moveState | orienter::stay);
-}
 void Tank::traverseLeft()
 {
     moveState = orienter(moveState | orienter::left);
@@ -56,7 +52,12 @@ void Tank::update(double deltaTime)
 {
     //sets acceleration based on various parameters
     setAcc(deltaTime);
-    if(moveState & fwd) //forward
+    if(moveState & brake)
+    {
+        moving = false;
+        currentSpeed *= pow(brakeForce, -deltaTime);
+    }
+    else if(moveState & fwd) //forward
     {
         moving = true;
         currentSpeed += acceleration;
@@ -69,11 +70,6 @@ void Tank::update(double deltaTime)
         currentSpeed -= acceleration;
         if(currentSpeed < -topSpeed/4)
             currentSpeed = -topSpeed/4;
-    }
-    else if(moveState & brake)
-    {
-        moving = false;
-        currentSpeed *= pow(brakeForce, -deltaTime);
     }
     else if(moveState & stay) //stationary
     {
