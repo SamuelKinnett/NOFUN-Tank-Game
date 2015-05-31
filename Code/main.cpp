@@ -84,7 +84,11 @@ int main(int argc, char** argv)
         glLoadIdentity();
 
         glColor3d(0.0,0.0,0.0);
+
         tnk.draw();
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
 
         dt = glfwGetTime(); //get frametime
         glfwSetTime(0);
@@ -93,9 +97,6 @@ int main(int argc, char** argv)
 
         tnk.processKeys(window);
         tnk.update(dt);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
     }
     glfwDestroyWindow(window);
     glfwTerminate();
