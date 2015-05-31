@@ -114,6 +114,30 @@ void Tank::draw()
     glPopMatrix();
 }
 
+void Tank::processKeys(GLFWwindow* window)
+{
+    if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    {
+        moveFwd();
+    }
+    if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        moveBwd();
+    }
+    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
+        moveBrk();
+    }
+    if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        traverseLeft();
+    }
+    if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        traverseRight();
+    }
+}
+
 //This method handles traversing the turret, given a direction
 //1 = right, 0 = left
 void Tank::RotateTurret(int direction)

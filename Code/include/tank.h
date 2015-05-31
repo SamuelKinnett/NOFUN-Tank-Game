@@ -16,6 +16,7 @@ class Tank
     public:
         Tank();
         void update(double);
+        void processKeys(GLFWwindow*);
         void draw();
 
         void moveFwd();

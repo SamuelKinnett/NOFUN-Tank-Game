@@ -25,6 +25,23 @@ static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 }
 
+/*
+// Replaces gluPerspective. Sets the frustum to perspective mode.
+// fovY     - Field of vision in degrees in the y direction
+// aspect   - Aspect ratio of the viewport
+// zNear    - The near clipping distance
+// zFar     - The far clipping distance
+
+void perspectiveGL( GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar )
+{
+    const GLdouble pi = 3.1415926535897932384626433832795;
+    GLdouble fW, fH;
+    fH = tan( (fovY / 2) / 180 * pi ) * zNear;
+    fH = tan( fovY / 360 * pi ) * zNear;
+    fW = fH * aspect;
+    glFrustum( -fW, fW, -fH, fH, zNear, zFar );
+}*/
+
 int main(int argc, char** argv)
 {
     if(!glfwInit())
@@ -74,26 +91,7 @@ int main(int argc, char** argv)
         sprintf(buf, "%fms", dt*1000);
         glfwSetWindowTitle(window, buf); //print frametime to window title
 
-        if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        {
-            tnk.moveFwd();
-        }
-        if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        {
-            tnk.moveBwd();
-        }
-        if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        {
-            tnk.moveBrk();
-        }
-        if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        {
-            tnk.traverseLeft();
-        }
-        if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        {
-            tnk.traverseRight();
-        }
+        tnk.processKeys(window);
         tnk.update(dt);
 
         glfwSwapBuffers(window);
