@@ -14,6 +14,8 @@ Tank::Tank()
     weight = 50;
     currentSpeed = 0;
     topSpeed = 500;
+    tankX[0] = -15; tankX[1] = 15; tankX[2] = 15; tankX[3] = -15;
+    tankY[0] = -25; tankY[1] =  -25; tankY[2] = 25; tankY[3] = 25;
 }
 
 void Tank::setAcc(double deltaTime)
@@ -71,7 +73,7 @@ void Tank::update(double deltaTime)
         if(currentSpeed < -topSpeed/4)
             currentSpeed = -topSpeed/4;
     }
-    else if(moveState & stay) //stationary
+    else //stationary
     {
         moving = false;
         currentSpeed *= pow(1.95, -deltaTime);
@@ -93,6 +95,23 @@ void Tank::update(double deltaTime)
     positionX += -sin(hullFacing) * currentSpeed * deltaTime;
     positionY += cos(hullFacing) * currentSpeed * deltaTime;
     moveState = orienter(0); //reset moveState to contain bits set
+}
+
+void Tank::draw()
+{
+    glPushMatrix();
+    glTranslatef(positionX, positionY, 0.0f);
+    glRotatef(hullFacing * Tank::RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
+
+    glBegin(GL_QUADS);
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            glVertex2d(tankX[i], tankY[i]);
+        }
+    }
+    glEnd();
+    glPopMatrix();
 }
 
 //This method handles traversing the turret, given a direction

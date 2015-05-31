@@ -8,6 +8,7 @@
 //Included dependencies
 #include "AABB.h"
 #include <math.h>
+#include <GLFW/glfw3.h>
 //==============================================================================
 //Class definition
 class Tank
@@ -15,10 +16,10 @@ class Tank
     public:
         Tank();
         void update(double);
+        void draw();
 
         void moveFwd();
         void moveBwd();
-        void moveStay();
         void moveBrk();
 
         void traverseLeft();
@@ -42,13 +43,15 @@ class Tank
             right = 1<<1,
             fwd = 1<<2,
             bwd = 1<<3,
-            stay = 1<<4,
-            brake = 1<<5,
-            front = 1<<6,
-            sides = 1<<7,
-            rear = 1<<8
+            brake = 1<<4,
+            front = 1<<5,
+            sides = 1<<6,
+            rear = 1<<7
         };
     private:
+
+        //tank coordinates
+        double tankX[4], tankY[4];
         //moveState is a bit field that represents all move options using an enum
         orienter moveState;
         //General Information

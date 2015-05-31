@@ -53,9 +53,6 @@ int main(int argc, char** argv)
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
     char buf[32];
-    double tankX[4], tankY[4];
-    tankX[0] = -15; tankX[1] = 15; tankX[2] = 15; tankX[3] = -15;
-    tankY[0] = -25; tankY[1] =  -25; tankY[2] = 25; tankY[3] = 25;
     while(!glfwWindowShouldClose(window))
     {
         glfwGetFramebufferSize(window, &width, &height);
@@ -70,19 +67,7 @@ int main(int argc, char** argv)
         glLoadIdentity();
 
         glColor3d(0.0,0.0,0.0);
-        glPushMatrix();
-        glTranslatef(tnk.getPosX(), tnk.getPosY(), 0.0f);
-        glRotatef(tnk.getHullRotation() * Tank::RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
-
-        glBegin(GL_QUADS);
-        {
-            for(int i = 0; i < 4; i++)
-            {
-                glVertex2d(tankX[i], tankY[i]);
-            }
-        }
-        glEnd();
-        glPopMatrix();
+        tnk.draw();
 
         dt = glfwGetTime(); //get frametime
         glfwSetTime(0);
