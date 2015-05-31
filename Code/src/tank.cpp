@@ -5,21 +5,21 @@ Tank::Tank()
 {
     moveState = orienter(0);
     hullFacing = 0;
-    hullTraverseRate = 50 * DEG_TO_RAD;
+    hullTraverseRate = 90 * DEG_TO_RAD;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
-    horsepower = 50000;
+    horsepower = 5000;
     weight = 50;
     currentSpeed = 0;
-    topSpeed = 150;
+    topSpeed = 500;
 }
 
 void Tank::setAcc(double deltaTime)
 {
     //TODO: calculate acceleration based on
     //horsepower, velocity, weight, gear ratio, rpm, ground resistance, ground grip, torque, ...
-    acceleration = (horsepower / weight) / 10 * deltaTime;
+    acceleration = (horsepower / weight) * deltaTime;
 }
 
 void Tank::moveFwd()
@@ -70,13 +70,13 @@ void Tank::update(double deltaTime)
         moving = false;
         currentSpeed *= pow(1.95, -deltaTime);
     }
-    if(moveState & left) //turn right
+    if(moveState & left) //turn left
     {
         hullFacing += hullTraverseRate * deltaTime;
         while(hullFacing > 2*PI)
             hullFacing -= 2*PI;
     }
-    if(moveState & right) //turn left
+    if(moveState & right) //turn right
     {
         hullFacing -= hullTraverseRate * deltaTime;
         while(hullFacing < 0)
