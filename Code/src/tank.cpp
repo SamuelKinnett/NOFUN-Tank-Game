@@ -9,7 +9,6 @@
 #define FRONT 0
 #define SIDES 1
 #define REAR 2
-#define DEGREES_TO_RADIANS 0.0174532925f
 
 Tank::Tank()
 {
@@ -73,11 +72,11 @@ void Tank::Traverse(int direction)
     switch (direction)
     {
         case (RIGHT):
-            if (hullFacing + hullTraverseRate < (360 * DEGREES_TO_RADIANS))
+            if (hullFacing + hullTraverseRate < (360 * DEG_TO_RAD))
                 hullFacing += hullTraverseRate;
             else
                 hullFacing = (hullFacing + hullTraverseRate) -
-                             (360 * DEGREES_TO_RADIANS);
+                             (360 * DEG_TO_RAD);
             break;
 
         case (LEFT):
@@ -85,7 +84,7 @@ void Tank::Traverse(int direction)
                 hullFacing -= hullTraverseRate;
             else
                 hullFacing = (hullFacing - hullTraverseRate) +
-                             (360 * DEGREES_TO_RADIANS);
+                             (360 * DEG_TO_RAD);
 
         break;
     }
@@ -108,9 +107,9 @@ void Tank::Update(float deltaTime)
     }
 
     //Move the tank
-    positionX += (sin (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
+    positionX += (sin (hullFacing * DEG_TO_RAD) * currentSpeed)
                   *deltaTime;
-    positionY += (cos (hullFacing * DEGREES_TO_RADIANS) * currentSpeed)
+    positionY += (cos (hullFacing * DEG_TO_RAD) * currentSpeed)
                   *deltaTime;
 }
 
@@ -121,11 +120,11 @@ void Tank::RotateTurret(int direction)
     switch (direction)
     {
         case (RIGHT):
-            if (turretFacing + turretTraverseRate < (360 * DEGREES_TO_RADIANS))
+            if (turretFacing + turretTraverseRate < (360 * DEG_TO_RAD))
                 turretFacing += turretTraverseRate;
             else
                 turretFacing = (turretFacing + turretTraverseRate) -
-                               (360 * DEGREES_TO_RADIANS);
+                               (360 * DEG_TO_RAD);
             break;
 
         case (LEFT):
@@ -133,7 +132,7 @@ void Tank::RotateTurret(int direction)
                 turretFacing -= turretTraverseRate;
             else
                 turretFacing = (turretFacing - turretTraverseRate) +
-                               (360 * DEGREES_TO_RADIANS);
+                               (360 * DEG_TO_RAD);
             break;
     }
 }
