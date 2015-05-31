@@ -31,11 +31,14 @@ class Tank
 
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
-        double getHullRotation() { return hullFacing; }
+        double getHullRotation() { return hullRotation; }
+        double getVel() { return velocity; }
 
         constexpr static double PI = 3.14159265359;
         constexpr static double DEG_TO_RAD = PI/180;
         constexpr static double RAD_TO_DEG = 180/PI;
+        constexpr static double M_TO_PX = 50/6.75;
+        constexpr static double KPH_TO_PXS = 1/3.6*M_TO_PX;
     protected:
         void setAcc(double);
         enum orienter
@@ -74,7 +77,7 @@ class Tank
         //Engine/Movement Information
         bool moving;
         //Is the tank currently moving?
-        float horsepower, weight, currentSpeed, topSpeed, acceleration, brakeForce;
+        double horsepower, weight, velocity, maxVel, acceleration, brakeForce;
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
 };

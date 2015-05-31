@@ -4,18 +4,18 @@
 Tank::Tank()
 {
     moveState = orienter(0);
-    hullFacing = 0;
-    hullTraverseRate = 90 * DEG_TO_RAD;
+    hullRotation = 0;
+    hullTraverseRate = 50 * DEG_TO_RAD;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
     horsepower = 5000;
     brakeForce = 100;
-    weight = 50;
-    currentSpeed = 0;
-    topSpeed = 500;
-    tankX[0] = -15; tankX[1] = 15; tankX[2] = 15; tankX[3] = -15;
-    tankY[0] = -25; tankY[1] =  -25; tankY[2] = 25; tankY[3] = 25;
+    weight = 22;
+    velocity = 0;
+    maxVel = 180 * KPH_TO_PXS;
+    tankX[0] = -3.32/2*M_TO_PX; tankX[1] = 3.32/2*M_TO_PX; tankX[2] = 3.32/2*M_TO_PX; tankX[3] = -3.32/2*M_TO_PX;
+    tankY[0] = -6.75/2*M_TO_PX; tankY[1] =  -6.75/2*M_TO_PX; tankY[2] = 6.75/2*M_TO_PX; tankY[3] = 6.75/2*M_TO_PX;
 }
 
 void Tank::setAcc(double deltaTime)
@@ -57,43 +57,43 @@ void Tank::update(double deltaTime)
     if(moveState & brake)
     {
         moving = false;
-        currentSpeed *= pow(brakeForce, -deltaTime);
+        velocity *= pow(brakeForce, -deltaTime);
     }
     else if(moveState & fwd) //forward
     {
         moving = true;
-        currentSpeed += acceleration;
-        if(currentSpeed > topSpeed)
-            currentSpeed = topSpeed;
+        velocity += acceleration;
+        if(velocity > maxVel)
+            velocity = maxVel;
     }
     else if(moveState & bwd) //backward, only allow one motion
     {
         moving = true;
-        currentSpeed -= acceleration;
-        if(currentSpeed < -topSpeed/4)
-            currentSpeed = -topSpeed/4;
+        velocity -= acceleration;
+        if(velocity < -maxVel/4)
+            velocity = -maxVel/4;
     }
     else //stationary
     {
         moving = false;
-        currentSpeed *= pow(1.95, -deltaTime);
+        velocity *= pow(1.95, -deltaTime);
     }
     if(moveState & left) //turn left
     {
-        hullFacing += hullTraverseRate * deltaTime;
-        while(hullFacing > 2*PI)
-            hullFacing -= 2*PI;
+        hullRotation += hullTraverseRate * deltaTime;
+        while(hullRotation > 2*PI)
+            hullRotation -= 2*PI;
     }
     if(moveState & right) //turn right
     {
-        hullFacing -= hullTraverseRate * deltaTime;
-        while(hullFacing < 0)
-            hullFacing += 2*PI;
+        hullRotation -= hullTraverseRate * deltaTime;
+        while(hullRotation < 0)
+            hullRotation += 2*PI;
     }
 
     //Move the tank
-    positionX += -sin(hullFacing) * currentSpeed * deltaTime;
-    positionY += cos(hullFacing) * currentSpeed * deltaTime;
+    positionX += -sin(hullRotation) * velocity * deltaTime;
+    positionY += cos(hullRotation) * velocity * deltaTime;
     moveState = orienter(0); //reset moveState to contain bits set
 }
 
@@ -101,7 +101,7 @@ void Tank::draw()
 {
     glPushMatrix();
     glTranslatef(positionX, positionY, 0.0f);
-    glRotatef(hullFacing * Tank::RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
+    glRotatef(hullRotation * Tank::RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
 
     glBegin(GL_QUADS);
     {
