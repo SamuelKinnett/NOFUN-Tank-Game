@@ -1,15 +1,6 @@
 #include <math.h>
 #include "../include/tank.h"
 
-#define RIGHT 1
-#define LEFT 0
-#define FORWARDS 2
-#define BACKWARDS 1
-#define STATIONARY 0
-#define FRONT 0
-#define SIDES 1
-#define REAR 2
-
 Tank::Tank()
 {
     hullFacing = 0;
@@ -34,7 +25,7 @@ void Tank::setAcc(float deltaTime)
 //2 = forwards, 1 = backwards, 0 = no input.
 //deltaTime is used to make a simple Euler Integrator to ensure framerate
 //independent acceleration.
-void Tank::Move(int direction, float deltaTime)
+void Tank::Move(orienter direction, float deltaTime)
 {
     setAcc(deltaTime);
     //Placeholder equation, recalculating it every time allows for engine damage
@@ -43,7 +34,7 @@ void Tank::Move(int direction, float deltaTime)
     //reversing speed is currently one quarter of the normal top speed
     switch (direction)
     {
-        case (FORWARDS):
+        case (orienter::forwards):
             moving = true;
             if (currentSpeed + acceleration < topSpeed)
                 currentSpeed += acceleration;
@@ -51,7 +42,7 @@ void Tank::Move(int direction, float deltaTime)
                 currentSpeed = topSpeed;
             break;
 
-        case (BACKWARDS):
+        case (orienter::backwards):
             moving = true;
             if (currentSpeed - acceleration > reversingSpeed)
                 currentSpeed -= acceleration;
@@ -59,19 +50,21 @@ void Tank::Move(int direction, float deltaTime)
                 currentSpeed = reversingSpeed;
             break;
 
-        case (STATIONARY):
+        case (orienter::stationary):
             moving = false;
             break;
+        default:
+            throw 0;
     }
 }
 
 //This method handles traversing the tank, given a direction
 //1 = right, 0 = left
-void Tank::Traverse(int direction)
+void Tank::Traverse(orienter direction)
 {
     switch (direction)
     {
-        case (RIGHT):
+        case (orienter::right):
             if (hullFacing + hullTraverseRate < (360 * DEG_TO_RAD))
                 hullFacing += hullTraverseRate;
             else
@@ -79,14 +72,15 @@ void Tank::Traverse(int direction)
                              (360 * DEG_TO_RAD);
             break;
 
-        case (LEFT):
+        case (orienter::left):
             if (hullFacing - hullTraverseRate > 0)
                 hullFacing -= hullTraverseRate;
             else
                 hullFacing = (hullFacing - hullTraverseRate) +
                              (360 * DEG_TO_RAD);
-
-        break;
+            break;
+        default:
+            throw 0;
     }
 }
 
@@ -115,11 +109,11 @@ void Tank::Update(float deltaTime)
 
 //This method handles traversing the turret, given a direction
 //1 = right, 0 = left
-void Tank::RotateTurret(int direction)
+void Tank::RotateTurret(orienter direction)
 {
     switch (direction)
     {
-        case (RIGHT):
+        case (orienter::right):
             if (turretFacing + turretTraverseRate < (360 * DEG_TO_RAD))
                 turretFacing += turretTraverseRate;
             else
@@ -127,13 +121,15 @@ void Tank::RotateTurret(int direction)
                                (360 * DEG_TO_RAD);
             break;
 
-        case (LEFT):
+        case (orienter::left):
             if (turretFacing - turretTraverseRate > 0)
                 turretFacing -= turretTraverseRate;
             else
                 turretFacing = (turretFacing - turretTraverseRate) +
                                (360 * DEG_TO_RAD);
             break;
+        default:
+            throw 0;
     }
 }
 

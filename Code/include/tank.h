@@ -9,13 +9,27 @@
 #include "AABB.h"
 //==============================================================================
 //Class definition
-class Tank {
+
+enum class orienter
+{
+    left,
+    right,
+    forwards,
+    backwards,
+    stationary,
+    front,
+    sides,
+    rear
+};
+
+class Tank
+{
     public:
         Tank();
-        void Move(int, float);
-        void Traverse(int);
+        void Move(orienter, float);
+        void Traverse(orienter);
         void Update(float);
-        void RotateTurret(int);
+        void RotateTurret(orienter);
         void Hit(float, int, int, int);
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }

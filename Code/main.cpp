@@ -82,23 +82,23 @@ int main(int argc, char** argv)
 
         if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         {
-            tnk.Move(2, dt);
+            tnk.Move(orienter::forwards, dt);
         }
         else if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            tnk.Move(1, dt);
+            tnk.Move(orienter::backwards, dt);
         }
         else
         {
-            tnk.Move(0, dt);
+            tnk.Move(orienter::stationary, dt);
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
         {
-            tnk.Traverse(0);
+            tnk.Traverse(orienter::left);
         }
         if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
-            tnk.Traverse(1);
+            tnk.Traverse(orienter::right);
         }
         tnk.Update(dt);
 
