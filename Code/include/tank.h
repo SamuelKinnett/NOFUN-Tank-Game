@@ -24,6 +24,9 @@ class Tank
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
         double getHullRotation() { return hullFacing; }
+        constexpr static double PI = 3.14159265359;
+        constexpr static double DEG_TO_RAD = PI/180;
+        constexpr static double RAD_TO_DEG = 180/PI;
     protected:
         void setAcc(double);
         enum orienter
@@ -62,9 +65,6 @@ class Tank
         float horsepower, weight, currentSpeed, topSpeed, acceleration;
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
-        const double PI = 3.14159265359;
-        const double DEG_TO_RAD = PI/180;
-        const double RAD_TO_DEG = 180/PI;
 };
 
 #endif

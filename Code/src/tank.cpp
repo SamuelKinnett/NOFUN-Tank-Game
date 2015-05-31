@@ -70,23 +70,23 @@ void Tank::update(double deltaTime)
         moving = false;
         currentSpeed *= pow(1.95, -deltaTime);
     }
-    if(moveState & left) //turn left
-    {
-        hullFacing -= hullTraverseRate * deltaTime;
-        while(hullFacing < 0)
-            hullFacing += 2*PI;
-    }
-    if(moveState & right) //turn right
+    if(moveState & left) //turn right
     {
         hullFacing += hullTraverseRate * deltaTime;
         while(hullFacing > 2*PI)
             hullFacing -= 2*PI;
     }
+    if(moveState & right) //turn left
+    {
+        hullFacing -= hullTraverseRate * deltaTime;
+        while(hullFacing < 0)
+            hullFacing += 2*PI;
+    }
 
     //Move the tank
-    positionX += sin(hullFacing) * currentSpeed * deltaTime;
+    positionX += -sin(hullFacing) * currentSpeed * deltaTime;
     positionY += cos(hullFacing) * currentSpeed * deltaTime;
-    moveState = orienter(0);
+    moveState = orienter(0); //reset moveState to contain bits set
 }
 
 //This method handles traversing the turret, given a direction
