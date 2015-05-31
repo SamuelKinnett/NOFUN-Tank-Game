@@ -7,37 +7,42 @@
 //==============================================================================
 //Included dependencies
 #include "AABB.h"
+#include <iostream>
 //==============================================================================
 //Class definition
-
-enum class orienter
-{
-    left,
-    right,
-    forwards,
-    backwards,
-    stationary,
-    front,
-    sides,
-    rear
-};
-
 class Tank
 {
     public:
         Tank();
-        void Move(orienter, float);
-        void Traverse(orienter);
-        void Update(float);
-        void RotateTurret(orienter);
-        void Hit(float, int, int, int);
+        void update(double);
+        void moveFwd();
+        void moveBwd();
+        void moveStay();
+        void traverseLeft();
+        void traverseRight();
+        void RotateTurret(int direction);
+        void hit(double, int, int, int);
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
+        double getHullRotation() { return hullFacing; }
     protected:
-        void setAcc(float);
+        void setAcc(double);
+        enum orienter
+        {
+            left = 1<<0,
+            right = 1<<1,
+            fwd = 1<<2,
+            bwd = 1<<3,
+            stay = 1<<4,
+            front = 1<<5,
+            sides = 1<<6,
+            rear = 1<<7
+        };
     private:
+        //moveState is a bit field that represents all move options using an enum
+        orienter moveState;
         //General Information
-        float hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
+        double hullFacing, turretFacing, hullTraverseRate, turretTraverseRate;
         //The angle that the hull and turret are facing, in radians, and the
         //rate at which both rotate in radians per tick
         double positionX, positionY;

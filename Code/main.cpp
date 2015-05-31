@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include <GLFW/glfw3.h>
 #include "include/tank.h"
 
@@ -50,8 +51,9 @@ int main(int argc, char** argv)
 
     Tank tnk;
     glfwSetTime(0); //reset time before entering game loop
-    char buf[32];
     double dt = 0; //time
+    char buf[32];
+    double tankX[4], tankY[4];
     while(!glfwWindowShouldClose(window))
     {
         glfwGetFramebufferSize(window, &width, &height);
@@ -66,12 +68,18 @@ int main(int argc, char** argv)
         glLoadIdentity();
 
         glColor3d(0.0,0.0,0.0);
+        tankX[0] = -15; tankX[1] = 15; tankX[2] = 15; tankX[3] = -15;
+        tankY[0] = -25; tankY[1] =  -25; tankY[2] = 25; tankY[3] = 25;
+        double cosrot = cos(tnk.getHullRotation());
+        double sinrot = sin(tnk.getHullRotation());
+
         glBegin(GL_QUADS);
         {
-            glVertex2d(tnk.getPosX(), tnk.getPosY());
-            glVertex2d(tnk.getPosX()+50, tnk.getPosY());
-            glVertex2d(tnk.getPosX()+50, tnk.getPosY()+20);
-            glVertex2d(tnk.getPosX(), tnk.getPosY()+20);
+            for(int i = 0; i < 4; i++)
+            {
+                glVertex2d(cosrot * tankX[i] + sinrot * tankY[i] + tnk.getPosX(),
+                           -sinrot * tankX[i] + cosrot * tankY[i] + tnk.getPosY());
+            }
         }
         glEnd();
 
@@ -82,25 +90,25 @@ int main(int argc, char** argv)
 
         if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         {
-            tnk.Move(orienter::forwards, dt);
+            tnk.moveFwd();
         }
         else if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            tnk.Move(orienter::backwards, dt);
+            tnk.moveBwd();
         }
         else
         {
-            tnk.Move(orienter::stationary, dt);
+            tnk.moveStay();
         }
         if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
         {
-            tnk.Traverse(orienter::left);
+            tnk.traverseLeft();
         }
         if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
-            tnk.Traverse(orienter::right);
+            tnk.traverseRight();
         }
-        tnk.Update(dt);
+        tnk.update(dt);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

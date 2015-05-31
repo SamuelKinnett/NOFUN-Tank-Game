@@ -3,117 +3,99 @@
 
 Tank::Tank()
 {
+    moveState = orienter(0);
     hullFacing = 0;
-    hullTraverseRate = 1.5;
+    hullTraverseRate = 50 * DEG_TO_RAD;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
     horsepower = 50000;
     weight = 50;
     currentSpeed = 0;
-    topSpeed = 50;
+    topSpeed = 150;
 }
 
-void Tank::setAcc(float deltaTime)
+void Tank::setAcc(double deltaTime)
 {
     //TODO: calculate acceleration based on
     //horsepower, velocity, weight, gear ratio, rpm, ground resistance, ground grip, torque, ...
     acceleration = (horsepower / weight) / 10 * deltaTime;
 }
 
-//This method handles moving the tank, given a direction
-//2 = forwards, 1 = backwards, 0 = no input.
-//deltaTime is used to make a simple Euler Integrator to ensure framerate
-//independent acceleration.
-void Tank::Move(orienter direction, float deltaTime)
+void Tank::moveFwd()
 {
-    setAcc(deltaTime);
-    //Placeholder equation, recalculating it every time allows for engine damage
-    //and horsepower loss to be reflected in speed
-    float reversingSpeed = ((topSpeed * -1) / 4);
-    //reversing speed is currently one quarter of the normal top speed
-    switch (direction)
-    {
-        case (orienter::forwards):
-            moving = true;
-            if (currentSpeed + acceleration < topSpeed)
-                currentSpeed += acceleration;
-            else
-                currentSpeed = topSpeed;
-            break;
-
-        case (orienter::backwards):
-            moving = true;
-            if (currentSpeed - acceleration > reversingSpeed)
-                currentSpeed -= acceleration;
-            else
-                currentSpeed = reversingSpeed;
-            break;
-
-        case (orienter::stationary):
-            moving = false;
-            break;
-        default:
-            throw 0;
-    }
+    moveState = orienter(moveState | orienter::fwd);
 }
-
-//This method handles traversing the tank, given a direction
-//1 = right, 0 = left
-void Tank::Traverse(orienter direction)
+void Tank::moveBwd()
 {
-    switch (direction)
-    {
-        case (orienter::right):
-            if (hullFacing + hullTraverseRate < (360 * DEG_TO_RAD))
-                hullFacing += hullTraverseRate;
-            else
-                hullFacing = (hullFacing + hullTraverseRate) -
-                             (360 * DEG_TO_RAD);
-            break;
-
-        case (orienter::left):
-            if (hullFacing - hullTraverseRate > 0)
-                hullFacing -= hullTraverseRate;
-            else
-                hullFacing = (hullFacing - hullTraverseRate) +
-                             (360 * DEG_TO_RAD);
-            break;
-        default:
-            throw 0;
-    }
+    moveState = orienter(moveState | orienter::bwd);
+}
+void Tank::moveStay()
+{
+    moveState = orienter(moveState | orienter::stay);
+}
+void Tank::traverseLeft()
+{
+    moveState = orienter(moveState | orienter::left);
+}
+void Tank::traverseRight()
+{
+    moveState = orienter(moveState | orienter::right);
 }
 
 //This method should be called every time the main update loop runs and updates
 //the tank's variables
 //deltaTime is used to make a simple Euler Integrator to ensure framerate
 //independent movement.
-void Tank::Update(float deltaTime)
+void Tank::update(double deltaTime)
 {
-    float acceleration = (horsepower / weight) / 10;
-    //Check to see if the tank needs to decelerate
-    if (!moving && currentSpeed > 0) {
-        //Decelerate
-        if (currentSpeed - (acceleration * 10) > 0)
-            currentSpeed -= (acceleration * 10);
-        else
-            currentSpeed = 0;
+    //sets acceleration based on various parameters
+    setAcc(deltaTime);
+    if(moveState & fwd) //forward
+    {
+        moving = true;
+        currentSpeed += acceleration;
+        if(currentSpeed > topSpeed)
+            currentSpeed = topSpeed;
+    }
+    else if(moveState & bwd) //backward, only allow one motion
+    {
+        moving = true;
+        currentSpeed -= acceleration;
+        if(currentSpeed < -topSpeed/4)
+            currentSpeed = -topSpeed/4;
+    }
+    else if(moveState & stay) //stationary
+    {
+        moving = false;
+        currentSpeed *= pow(1.95, -deltaTime);
+    }
+    if(moveState & left) //turn left
+    {
+        hullFacing -= hullTraverseRate * deltaTime;
+        while(hullFacing < 0)
+            hullFacing += 2*PI;
+    }
+    if(moveState & right) //turn right
+    {
+        hullFacing += hullTraverseRate * deltaTime;
+        while(hullFacing > 2*PI)
+            hullFacing -= 2*PI;
     }
 
     //Move the tank
-    positionX += (sin (hullFacing * DEG_TO_RAD) * currentSpeed)
-                  *deltaTime;
-    positionY += (cos (hullFacing * DEG_TO_RAD) * currentSpeed)
-                  *deltaTime;
+    positionX += sin(hullFacing) * currentSpeed * deltaTime;
+    positionY += cos(hullFacing) * currentSpeed * deltaTime;
+    moveState = orienter(0);
 }
 
 //This method handles traversing the turret, given a direction
 //1 = right, 0 = left
-void Tank::RotateTurret(orienter direction)
+void Tank::RotateTurret(int direction)
 {
     switch (direction)
     {
-        case (orienter::right):
+        case (orienter(right)):
             if (turretFacing + turretTraverseRate < (360 * DEG_TO_RAD))
                 turretFacing += turretTraverseRate;
             else
@@ -121,7 +103,7 @@ void Tank::RotateTurret(orienter direction)
                                (360 * DEG_TO_RAD);
             break;
 
-        case (orienter::left):
+        case (orienter(left)):
             if (turretFacing - turretTraverseRate > 0)
                 turretFacing -= turretTraverseRate;
             else
@@ -139,7 +121,7 @@ void Tank::RotateTurret(orienter direction)
 //enemy shot.
 //areaHit details the area of the tank that was hit. 0 = front, 1 = sides,
 //2 = rear.
-void Tank::Hit(float angleOfShot, int damage, int penetration, int areaHit)
+void Tank::hit(double angleOfShot, int damage, int penetration, int areaHit)
 {
    //TODO: Everything here, currently in progress
 }
