@@ -10,3 +10,15 @@
 - Prepare tanks for textures
 
 - Do we need subclasses from tanks for TD/Heavy/Med/Light?
+
+- Modules class
+	Gun, Tracks, Radio, AmmoRack, Engine
+
+- Improve movement:
+	different gear ratios
+	base acceleration on rpm
+	make acceleration decrease as high RPM is reached
+	separate movement from main tanks
+	make each track move individually
+	realistically simulate turning (one track moves slower)
+	
