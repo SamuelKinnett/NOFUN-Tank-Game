@@ -5,7 +5,7 @@ Tank::Tank()
 {
     moveState = orienter(0);
     hullRotation = 0;
-    hullTraverseRate = 50 * DEG_TO_RAD;
+    hullTraverseRate = 90 * DEG_TO_RAD;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
@@ -13,9 +13,14 @@ Tank::Tank()
     brakeForce = 100;
     weight = 22;
     velocity = 0;
-    maxVel = 180 * KPH_TO_PXS;
+    maxVel = 100 * KPH_TO_PXS;
     tankX[0] = -3.32/2*M_TO_PX; tankX[1] = 3.32/2*M_TO_PX; tankX[2] = 3.32/2*M_TO_PX; tankX[3] = -3.32/2*M_TO_PX;
     tankY[0] = -6.75/2*M_TO_PX; tankY[1] =  -6.75/2*M_TO_PX; tankY[2] = 6.75/2*M_TO_PX; tankY[3] = 6.75/2*M_TO_PX;
+
+    gun_vertX[0] = -0.8/2*M_TO_PX; gun_vertX[1] = -gun_vertX[0]; gun_vertX[2] = gun_vertX[1]; gun_vertX[3] = gun_vertX[0];
+    gun_vertY[0] = 0; gun_vertY[1] = 0; gun_vertY[2] = 7*M_TO_PX; gun_vertY[3] = 7*M_TO_PX;
+
+    gun_traverse = 90*DEG_TO_RAD;
 }
 
 void Tank::setAcc(double deltaTime)
@@ -44,6 +49,12 @@ void Tank::traverseLeft()
 void Tank::traverseRight()
 {
     moveState = orienter(moveState | orienter::right);
+}
+void Tank::gunLeft() {
+    moveState = orienter(moveState | orienter::gun_left);
+}
+void Tank::gunRight() {
+    moveState = orienter(moveState | orienter::gun_right);
 }
 
 //This method should be called every time the main update loop runs and updates
@@ -78,17 +89,27 @@ void Tank::update(double deltaTime)
         moving = false;
         velocity *= pow(1.95, -deltaTime);
     }
-    if(moveState & left) //turn left
+    if(moveState & right) //turn right
     {
         hullRotation += hullTraverseRate * deltaTime;
         while(hullRotation > 2*PI)
             hullRotation -= 2*PI;
     }
-    if(moveState & right) //turn right
+    if(moveState & left) //turn left
     {
         hullRotation -= hullTraverseRate * deltaTime;
         while(hullRotation < 0)
             hullRotation += 2*PI;
+    }
+    if(moveState & gun_right) {
+        gun_rot += gun_traverse * deltaTime;
+        while(gun_rot > 2*PI)
+            gun_rot -= 2*PI;
+    }
+    if(moveState & gun_left) {
+        gun_rot -= gun_traverse * deltaTime;
+        while(gun_rot < 0)
+            gun_rot += 2*PI;
     }
 
     //Move the tank
@@ -101,7 +122,7 @@ void Tank::draw()
 {
     glPushMatrix();
     glTranslatef(positionX, positionY, 0.0f);
-    glRotatef(hullRotation * Tank::RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
+    glRotatef(hullRotation * RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
 
     glBegin(GL_QUADS);
     {
@@ -111,11 +132,37 @@ void Tank::draw()
         }
     }
     glEnd();
+
+    glRotatef(gun_rot * RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
+    glBegin(GL_QUADS);
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            glVertex2d(gun_vertX[i], gun_vertY[i]);
+        }
+    }
+    glEnd();
     glPopMatrix();
 }
 
 void Tank::processKeys(GLFWwindow* window)
 {
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+
+    xpos -= positionX;
+    ypos -= positionY;
+
+    double c = cos(gun_rot+hullRotation);
+    double s = sin(gun_rot+hullRotation);
+    double x = -(xpos * c + ypos * s);
+    //double y = ypos * c - xpos * s;
+    if(x < 0)
+        gunLeft();
+    else if(x > 0) {
+        gunRight();
+    }
+
     if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
         moveFwd();
