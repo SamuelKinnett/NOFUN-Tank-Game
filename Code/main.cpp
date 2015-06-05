@@ -74,7 +74,6 @@ int main(int argc, char** argv)
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
     char buf[32];
-    int i = 0;
     while(!glfwWindowShouldClose(window))
     {
 
