@@ -88,8 +88,7 @@ int main(int argc, char** argv)
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        glColor4d(sin(i*0.01)/2+0.5,sin(i*0.02+1)/2+0.5,sin(i*0.03+2)/2+0.5, 1);
-        //glColor3d(0, 0, 0);
+        glColor3d(0, 0, 0);
         glPushMatrix();
         //glTranslatef(-tnk.getPosX()+width/2.0-sin(-tnk.getHullRotation())*tnk.getVel()*0.25, -tnk.getPosY()+height/2.0-cos(-tnk.getHullRotation())*tnk.getVel()*0.25, 0);
         tnk.draw();
