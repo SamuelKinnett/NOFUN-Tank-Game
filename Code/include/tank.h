@@ -26,6 +26,9 @@ class Tank
         void traverseLeft();
         void traverseRight();
 
+        void gunLeft();
+        void gunRight();
+
         void RotateTurret(int direction);
         void hit(double, int, int, int);
 
@@ -50,10 +53,14 @@ class Tank
             brake = 1<<4,
             front = 1<<5,
             sides = 1<<6,
-            rear = 1<<7
+            rear = 1<<7,
+            gun_left = 1<<8,
+            gun_right = 1<<9,
         };
     private:
-
+        double gun_rot;
+        double gun_traverse;
+        double gun_vertX[4], gun_vertY[4];
         //tank coordinates
         double tankX[4], tankY[4];
         //moveState is a bit field that represents all move options using an enum
