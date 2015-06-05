@@ -66,25 +66,31 @@ int main(int argc, char** argv)
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
 
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
     Tank tnk;
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
     char buf[32];
+    int i = 0;
     while(!glfwWindowShouldClose(window))
     {
+
         glfwGetFramebufferSize(window, &width, &height);
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, width, 0, height, -1, +1);
+        glOrtho(0, width, height, 0, -1, +1);
 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        glColor3d(0.0,0.0,0.0);
-
+        glColor4d(sin(i*0.01)/2+0.5,sin(i*0.02+1)/2+0.5,sin(i*0.03+2)/2+0.5, 1);
+        //glColor3d(0, 0, 0);
         glPushMatrix();
         //glTranslatef(-tnk.getPosX()+width/2.0-sin(-tnk.getHullRotation())*tnk.getVel()*0.25, -tnk.getPosY()+height/2.0-cos(-tnk.getHullRotation())*tnk.getVel()*0.25, 0);
         tnk.draw();
