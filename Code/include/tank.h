@@ -9,6 +9,7 @@
 #include "AABB.h"
 #include <math.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 //==============================================================================
 //Class definition
 class Tank
@@ -56,20 +57,20 @@ class Tank
             gRot = 1<<8
         };
     private:
-        double gunRot;
-        double gunTraverseRate, gunAngleTarget;
+        double gunRot = 0;
+        double gunTraverseRate = 0, gunAngleTarget = 0;
         double gunVertX[4], gunVertY[4];
         //tank coordinates
         double tankX[4], tankY[4];
         //moveState is a bit field that represents all move options using an enum
-        orienter moveState;
+        orienter moveState = orienter(0);
         //General Information
-        double hullRotation, turretFacing, hullTraverseRate, turretTraverseRate;
+        double hullRotation = 0, turretFacing = 0, hullTraverseRate = 0, turretTraverseRate = 0;
         //The angle that the hull and turret are facing, in radians, and the
         //rate at which both rotate in radians per tick
-        double positionX, positionY;
+        double positionX = 0, positionY = 0;
         //The X and Y co-ordinates of the tank
-        int hp, maxHP;
+        int hp = 0, maxHP = 0;
         //The health points that the tank has currently and the absolute maximum
         //health
         float armour [3];
@@ -80,9 +81,9 @@ class Tank
         //Information about the tank's ammo, in the format AP, APCR, HE
 
         //Engine/Movement Information
-        bool moving;
+        bool moving = false;
         //Is the tank currently moving?
-        double horsepower, weight, velocity, maxVel, acceleration, brakeForce;
+        double horsepower = 0, weight = 0, velocity = 0, maxVel = 0, acceleration = 0, brakeForce = 0;
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
 };

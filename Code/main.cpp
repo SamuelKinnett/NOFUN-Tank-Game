@@ -91,6 +91,7 @@ int main(int argc, char** argv)
         glColor3d(0, 0, 0);
         glPushMatrix();
         //glTranslatef(-tnk.getPosX()+width/2.0-sin(-tnk.getHullRotation())*tnk.getVel()*0.25, -tnk.getPosY()+height/2.0-cos(-tnk.getHullRotation())*tnk.getVel()*0.25, 0);
+
         tnk.draw();
         glPopMatrix();
 
