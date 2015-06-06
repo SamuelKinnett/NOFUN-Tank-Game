@@ -95,18 +95,12 @@ void Tank::update(double deltaTime)
     if(moveState & right) //turn right
     {
         hullRotation += hullTraverseRate * deltaTime;
-        while(hullRotation > 2*PI)
-        {
-            hullRotation -= 2*PI;
-        }
+        hullRotation = fmod(hullRotation, 2*PI);
     }
     if(moveState & left) //turn left
     {
         hullRotation -= hullTraverseRate * deltaTime;
-        while(hullRotation < 0)
-        {
-            hullRotation += 2*PI;
-        }
+        hullRotation = fmod(hullRotation, 2*PI);
     }
     if(moveState & gRot) {
         double gunRemain = gunAngleTarget;
@@ -127,14 +121,7 @@ void Tank::update(double deltaTime)
         {
             gunRot += gunRemain;
         }
-        while(gunRot > 2*PI)
-        {
-            gunRot -= 2*PI;
-        }
-        while(gunRot < 0)
-        {
-            gunRot += 2*PI;
-        }
+        fmod(gunRot, 2*PI);
     }
 
     //Move the tank
