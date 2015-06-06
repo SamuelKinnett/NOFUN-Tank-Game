@@ -38,10 +38,10 @@ class Tank
         double getVel() { return velocity; }
 
         const static double PI;
-		const static double DEG_TO_RAD;
-		const static double RAD_TO_DEG;
-		const static double M_TO_PX;
-		const static double KPH_TO_PXS;
+        const static double DEG_TO_RAD;
+        const static double RAD_TO_DEG;
+        const static double M_TO_PX;
+        const static double KPH_TO_PXS;
     protected:
         void setAcc(double);
         enum orienter

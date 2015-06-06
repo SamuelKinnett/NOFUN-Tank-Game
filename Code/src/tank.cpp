@@ -12,29 +12,29 @@ Tank::Tank()
 {	
     moveState = orienter(0);
     hullRotation = 0;
-    hullTraverseRate = 90 * DEG_TO_RAD;
+    hullTraverseRate = 18 * DEG_TO_RAD;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
-    horsepower = 5000;
+    horsepower = 500;
+    weight = 47800;
     brakeForce = 100;
-    weight = 22;
     velocity = 0;
-    maxVel = 100 * KPH_TO_PXS;
+    maxVel = 34 * KPH_TO_PXS;
     tankX[0] = -3.32/2*M_TO_PX; tankX[1] = 3.32/2*M_TO_PX; tankX[2] = 3.32/2*M_TO_PX; tankX[3] = -3.32/2*M_TO_PX;
     tankY[0] = -6.75/2*M_TO_PX; tankY[1] =  -6.75/2*M_TO_PX; tankY[2] = 6.75/2*M_TO_PX; tankY[3] = 6.75/2*M_TO_PX;
 
     gunVertX[0] = -0.8/2*M_TO_PX; gunVertX[1] = -gunVertX[0]; gunVertX[2] = gunVertX[1]; gunVertX[3] = gunVertX[0];
     gunVertY[0] = 0; gunVertY[1] = 0; gunVertY[2] = 7*M_TO_PX; gunVertY[3] = 7*M_TO_PX;
 
-    gunTraverseRate = 80*DEG_TO_RAD;
+    gunTraverseRate = 0.1*DEG_TO_RAD;
 }
 
 void Tank::setAcc(double deltaTime)
 {
     //TODO: calculate acceleration based on
     //horsepower, velocity, weight, gear ratio, rpm, ground resistance, ground grip, torque, ...
-    acceleration = (horsepower / weight) * deltaTime;
+    acceleration = (1000*horsepower / weight) * deltaTime;
 }
 
 void Tank::moveFwd()
@@ -111,10 +111,6 @@ void Tank::update(double deltaTime)
     }
     if(moveState & gRot) {
         double gunRemain = gunAngleTarget;
-        if(gunRemain > PI) //expect gunAngleTarget to be >= 0 and <= 2*PI
-        {
-            gunRemain = -2*PI+gunAngleTarget;
-        }
 
         if(gunRemain > gunTraverseRate*deltaTime)
         {
@@ -176,23 +172,7 @@ void Tank::processKeys(GLFWwindow* window)
     double s = sin(gunRot+hullRotation);
     double x = -(xpos * c + ypos * s);
     double y = ypos * c - xpos * s;
-    double angle = 0;
-    if(x <= 0 && y < 0)
-    {
-        angle = PI + atan(x / y);
-    }
-    else if(x < 0 && y >= 0)
-    {
-        angle = 1.5 * PI + atan((-y) / x);
-    }
-    else if(x >= 0 && y > 0)
-    {
-        angle = atan((-x) / (-y));
-    }
-    else if (x > 0 && y <= 0)
-    {
-        angle = PI/2 + atan((-y) / x);
-    }
+    double angle = atan2(x, y); //swap x & y for correct angle because gun is pointing upwards
     gunRotate(angle);
 
     if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
