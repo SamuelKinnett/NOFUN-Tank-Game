@@ -8,3 +8,7 @@ bin/
 obj/
 NOFUN-Tank-Game/
 Debug/
+*.opensdf
+*.sdf
+*.sln
+*.suo
