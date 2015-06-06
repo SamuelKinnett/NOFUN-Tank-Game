@@ -20,7 +20,7 @@ Tank::Tank()
     gunVertX[0] = -0.8/2*M_TO_PX; gunVertX[1] = -gunVertX[0]; gunVertX[2] = gunVertX[1]; gunVertX[3] = gunVertX[0];
     gunVertY[0] = 0; gunVertY[1] = 0; gunVertY[2] = 7*M_TO_PX; gunVertY[3] = 7*M_TO_PX;
 
-    gunTraverseRate = 90*DEG_TO_RAD;
+    gunTraverseRate = 80*DEG_TO_RAD;
 }
 
 void Tank::setAcc(double deltaTime)
@@ -74,14 +74,18 @@ void Tank::update(double deltaTime)
         moving = true;
         velocity += acceleration;
         if(velocity > maxVel)
+        {
             velocity = maxVel;
+        }
     }
     else if(moveState & bwd) //backward, only allow one motion
     {
         moving = true;
         velocity -= acceleration;
         if(velocity < -maxVel/4)
+        {
             velocity = -maxVel/4;
+        }
     }
     else //stationary
     {
@@ -92,13 +96,17 @@ void Tank::update(double deltaTime)
     {
         hullRotation += hullTraverseRate * deltaTime;
         while(hullRotation > 2*PI)
+        {
             hullRotation -= 2*PI;
+        }
     }
     if(moveState & left) //turn left
     {
         hullRotation -= hullTraverseRate * deltaTime;
         while(hullRotation < 0)
+        {
             hullRotation += 2*PI;
+        }
     }
     if(moveState & gRot) {
         double gunRemain = gunAngleTarget;
@@ -174,7 +182,7 @@ void Tank::processKeys(GLFWwindow* window)
     double s = sin(gunRot+hullRotation);
     double x = -(xpos * c + ypos * s);
     double y = ypos * c - xpos * s;
-    double angle;
+    double angle = 0;
     if(x <= 0 && y < 0)
     {
         angle = PI + atan(x / y);
