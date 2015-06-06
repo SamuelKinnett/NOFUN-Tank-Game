@@ -37,11 +37,11 @@ class Tank
         double getHullRotation() { return hullRotation; }
         double getVel() { return velocity; }
 
-        constexpr static double PI = 3.14159265359;
-        constexpr static double DEG_TO_RAD = PI/180;
-        constexpr static double RAD_TO_DEG = 180/PI;
-        constexpr static double M_TO_PX = 50/6.75;
-        constexpr static double KPH_TO_PXS = 1/3.6*M_TO_PX;
+        const static double PI;
+		const static double DEG_TO_RAD;
+		const static double RAD_TO_DEG;
+		const static double M_TO_PX;
+		const static double KPH_TO_PXS;
     protected:
         void setAcc(double);
         enum orienter

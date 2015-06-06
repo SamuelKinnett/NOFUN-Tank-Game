@@ -1,8 +1,15 @@
 #include <math.h>
 #include "../include/tank.h"
 
+//static constants
+const double Tank::PI = 3.14159265358979323846;
+const double Tank::DEG_TO_RAD = PI / 180;
+const double Tank::RAD_TO_DEG = 180 / PI;
+const double Tank::M_TO_PX = 50 / 6.75;
+const double Tank::KPH_TO_PXS = 1 / 3.6*M_TO_PX;
+
 Tank::Tank()
-{
+{	
     moveState = orienter(0);
     hullRotation = 0;
     hullTraverseRate = 90 * DEG_TO_RAD;
