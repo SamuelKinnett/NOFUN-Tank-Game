@@ -9,7 +9,6 @@
 #include "AABB.h"
 #include <math.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
 //==============================================================================
 //Class definition
 class Tank

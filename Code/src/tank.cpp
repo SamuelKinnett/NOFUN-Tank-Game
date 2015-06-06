@@ -103,19 +103,30 @@ void Tank::update(double deltaTime)
     if(moveState & gRot) {
         double gunRemain = gunAngleTarget;
         if(gunRemain > PI) //expect gunAngleTarget to be >= 0 and <= 2*PI
+        {
             gunRemain = -2*PI+gunAngleTarget;
-        std::cout << gunRemain * RAD_TO_DEG << std::endl;
-        if(gunRemain > gunTraverseRate*deltaTime)
-            gunRot += gunTraverseRate * deltaTime;
-        else if(-gunRemain > gunTraverseRate*deltaTime)
-            gunRot -= gunTraverseRate * deltaTime;
-        else
-            gunRot += gunRemain;
+        }
 
+        if(gunRemain > gunTraverseRate*deltaTime)
+        {
+            gunRot += gunTraverseRate * deltaTime;
+        }
+        else if(-gunRemain > gunTraverseRate*deltaTime)
+        {
+            gunRot -= gunTraverseRate * deltaTime;
+        }
+        else
+        {
+            gunRot += gunRemain;
+        }
         while(gunRot > 2*PI)
+        {
             gunRot -= 2*PI;
+        }
         while(gunRot < 0)
+        {
             gunRot += 2*PI;
+        }
     }
 
     //Move the tank
@@ -163,7 +174,7 @@ void Tank::processKeys(GLFWwindow* window)
     double s = sin(gunRot+hullRotation);
     double x = -(xpos * c + ypos * s);
     double y = ypos * c - xpos * s;
-    double angle = 0;
+    double angle;
     if(x <= 0 && y < 0)
     {
         angle = PI + atan(x / y);
