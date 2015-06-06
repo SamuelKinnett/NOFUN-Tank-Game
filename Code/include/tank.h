@@ -9,6 +9,7 @@
 #include "AABB.h"
 #include <math.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 //==============================================================================
 //Class definition
 class Tank
@@ -26,8 +27,7 @@ class Tank
         void traverseLeft();
         void traverseRight();
 
-        void gunLeft();
-        void gunRight();
+        void gunRotate(double);
 
         void RotateTurret(int direction);
         void hit(double, int, int, int);
@@ -54,13 +54,12 @@ class Tank
             front = 1<<5,
             sides = 1<<6,
             rear = 1<<7,
-            gun_left = 1<<8,
-            gun_right = 1<<9,
+            gRot = 1<<8
         };
     private:
-        double gun_rot;
-        double gun_traverse;
-        double gun_vertX[4], gun_vertY[4];
+        double gunRot;
+        double gunTraverseRate, gunAngleTarget;
+        double gunVertX[4], gunVertY[4];
         //tank coordinates
         double tankX[4], tankY[4];
         //moveState is a bit field that represents all move options using an enum
