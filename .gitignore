@@ -12,3 +12,5 @@ Debug/
 *.sdf
 *.sln
 *.suo
+*.7z
+*.pdb
