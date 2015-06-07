@@ -70,7 +70,7 @@ int main(int argc, char** argv)
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-    Tank tnk, tnk2;
+    Tank tnk(67, 42, 18000, 240, 78, 100), tnk2;
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
     double cx, cy, tx, ty;
@@ -112,6 +112,8 @@ int main(int argc, char** argv)
         cy -= ty;
         tnk.processKeys(window, cx, cy);
         tnk.update(dt);
+        tnk2.moveFwd();
+        tnk2.update(dt);
     }
     glfwDestroyWindow(window);
     glfwTerminate();
