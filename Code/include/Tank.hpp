@@ -28,10 +28,7 @@ class Tank : public Drawable
         void traverseLeft();
         void traverseRight();
 
-        void gunRotate(double);
-
-        void RotateTurret(int direction);
-        void hit(double, int, int, int);
+        void turretRotate(double);
 
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
@@ -58,9 +55,9 @@ class Tank : public Drawable
             gRot = 1<<8
         };
     private:
-        double gunRot = 0;
-        double gunTraverseRate = 0, gunAngleTarget = 0;
-        double gunVertX[4], gunVertY[4];
+        double turretRot = 0;
+        double turretTraverseRate = 0, turretAngleTarget = 0;
+        double turretVertX[4], turretVertY[4];
         //tank coordinates
         double tankX[4], tankY[4];
         //moveState is a bit field that represents all move options using an enum

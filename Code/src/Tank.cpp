@@ -24,10 +24,10 @@ Tank::Tank()
     tankX[0] = -3.32/2*M_TO_PX; tankX[1] = 3.32/2*M_TO_PX; tankX[2] = 3.32/2*M_TO_PX; tankX[3] = -3.32/2*M_TO_PX;
     tankY[0] = -6.75/2*M_TO_PX; tankY[1] =  -6.75/2*M_TO_PX; tankY[2] = 6.75/2*M_TO_PX; tankY[3] = 6.75/2*M_TO_PX;
 
-    gunVertX[0] = -0.8/2*M_TO_PX; gunVertX[1] = -gunVertX[0]; gunVertX[2] = gunVertX[1]; gunVertX[3] = gunVertX[0];
-    gunVertY[0] = 0; gunVertY[1] = 0; gunVertY[2] = 7*M_TO_PX; gunVertY[3] = 7*M_TO_PX;
+    turretVertX[0] = -0.8/2*M_TO_PX; turretVertX[1] = -turretVertX[0]; turretVertX[2] = turretVertX[1]; turretVertX[3] = turretVertX[0];
+    turretVertY[0] = 0; turretVertY[1] = 0; turretVertY[2] = 7*M_TO_PX; turretVertY[3] = 7*M_TO_PX;
 
-    gunTraverseRate = 42*DEG_TO_RAD;
+    turretTraverseRate = 42*DEG_TO_RAD;
 }
 
 void Tank::setAcc(double deltaTime)
@@ -57,10 +57,10 @@ void Tank::traverseRight()
 {
     moveState = orienter(moveState | orienter::right);
 }
-void Tank::gunRotate(double angle)
+void Tank::turretRotate(double angle)
 {
     moveState = orienter(moveState | orienter::gRot);
-    gunAngleTarget = angle;
+    turretAngleTarget = angle;
 }
 
 //This method should be called every time the main update loop runs and updates
@@ -110,21 +110,21 @@ void Tank::update(double deltaTime)
         hullRotation = fmod(hullRotation, 2*PI);
     }
     if(moveState & gRot) {
-        double gunRemain = gunAngleTarget;
+        double turretRemain = turretAngleTarget;
 
-        if(gunRemain > gunTraverseRate*deltaTime)
+        if(turretRemain > turretTraverseRate*deltaTime)
         {
-            gunRot += gunTraverseRate * deltaTime;
+            turretRot += turretTraverseRate * deltaTime;
         }
-        else if(-gunRemain > gunTraverseRate*deltaTime)
+        else if(-turretRemain > turretTraverseRate*deltaTime)
         {
-            gunRot -= gunTraverseRate * deltaTime;
+            turretRot -= turretTraverseRate * deltaTime;
         }
         else
         {
-            gunRot += gunRemain;
+            turretRot += turretRemain;
         }
-        fmod(gunRot, 2*PI);
+        fmod(turretRot, 2*PI);
     }
 
     //Move the tank
@@ -148,12 +148,12 @@ void Tank::draw()
     }
     glEnd();
 
-    glRotatef(gunRot * RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
+    glRotatef(turretRot * RAD_TO_DEG, 0.0f, 0.0f, 1.0f);
     glBegin(GL_QUADS);
     {
         for(int i = 0; i < 4; i++)
         {
-            glVertex2d(gunVertX[i], gunVertY[i]);
+            glVertex2d(turretVertX[i], turretVertY[i]);
         }
     }
     glEnd();
@@ -168,12 +168,12 @@ void Tank::processKeys(GLFWwindow* window)
     xpos -= positionX;
     ypos -= positionY;
 
-    double c = cos(gunRot+hullRotation);
-    double s = sin(gunRot+hullRotation);
+    double c = cos(turretRot+hullRotation);
+    double s = sin(turretRot+hullRotation);
     double x = -(xpos * c + ypos * s);
     double y = ypos * c - xpos * s;
-    double angle = atan2(x, y); //swap x & y for correct angle because gun is pointing upwards
-    gunRotate(angle);
+    double angle = atan2(x, y); //swap x & y for correct angle because turret is pointing upwards
+    turretRotate(angle);
 
     if(glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
@@ -196,7 +196,7 @@ void Tank::processKeys(GLFWwindow* window)
         traverseRight();
     }
 }
-
+/*
 //This method handles traversing the turret, given a direction
 //1 = right, 0 = left
 void Tank::RotateTurret(int direction)
@@ -233,3 +233,4 @@ void Tank::hit(double angleOfShot, int damage, int penetration, int areaHit)
 {
    //TODO: Everything here, currently in progress
 }
+*/
