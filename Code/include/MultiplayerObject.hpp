@@ -4,7 +4,7 @@
 
 #include "Drawable.hpp"
 
-class MultiplayerObject : public Drawable
+class MultiplayerObject
 {
     public:
         virtual void setPos(double x, double y) = 0;

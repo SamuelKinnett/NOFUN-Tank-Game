@@ -5,12 +5,13 @@
 //Included dependencies
 #include "AABB.hpp"
 #include "MultiplayerObject.hpp"
+#include "Drawable.hpp"
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 //A class describing a tank
-class Tank : public MultiplayerObject
+class Tank : public MultiplayerObject, public Drawable
 {
     public:
         Tank();
