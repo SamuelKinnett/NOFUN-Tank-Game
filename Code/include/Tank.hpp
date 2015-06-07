@@ -32,10 +32,10 @@ class Tank : public MultiplayerObject
 
         void turretRotate(double);
         void turretRotateTo(double);
-        void target(MultiplayerObject&);
+        void target(const MultiplayerObject&);
 
-        double getPosX() { return positionX; }
-        double getPosY() { return positionY; }
+        double getPosX() const { return positionX; }
+        double getPosY() const { return positionY; }
         double getHullRotation() { return hullRotation; }
         double getVel() { return velocity; }
 

@@ -9,8 +9,8 @@ class MultiplayerObject : public Drawable
     public:
         virtual void setPos(double x, double y) = 0;
         virtual void setRot(double angle) = 0;
-        virtual double getPosX() = 0;
-        virtual double getPosY() = 0;
+        virtual double getPosX() const = 0;
+        virtual double getPosY() const = 0;
 };
 
 #endif

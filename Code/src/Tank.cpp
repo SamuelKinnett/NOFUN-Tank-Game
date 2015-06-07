@@ -73,7 +73,7 @@ void Tank::turretRotateTo(double angle)
     turretAngleTarget = fmod(angle - turretRot, 2 * PI);
 }
 
-void Tank::target(MultiplayerObject& t)
+void Tank::target(const MultiplayerObject& t)
 {
     double cx = t.getPosX() - positionX;
     double cy = t.getPosY() - positionY;
