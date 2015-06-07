@@ -56,7 +56,7 @@ class Tank : public Drawable
         };
     private:
         double turretRot = 0;
-        double turretTraverseRate = 0, turretAngleTarget = 0;
+        double turretAngleTarget = 0;
         double turretVertX[4], turretVertY[4];
         //tank coordinates
         double tankX[4], tankY[4];
