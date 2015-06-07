@@ -1,7 +1,3 @@
-- Do we need an event queue?
-	Could allow independent development of e.g. tanks and main
-	If so - can we have it on it's on thread asynchronous from other objects?
-	
 - Implement more precise collision box
 	axis aligned bounding box is enough for rough checking
 
