@@ -12,6 +12,8 @@ class Tank : public MultiplayerObject
 {
     public:
         Tank();
+        Tank(double, double, double, double, double, double);
+
         void update(double);
         void processKeys(GLFWwindow*, double, double);
         void draw();

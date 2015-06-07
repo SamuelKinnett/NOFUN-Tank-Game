@@ -8,26 +8,31 @@ const double Tank::RAD_TO_DEG = 180 / PI;
 const double Tank::M_TO_PX = 50 / 6.75;
 const double Tank::KPH_TO_PXS = 1 / 3.6*M_TO_PX;
 
-Tank::Tank()
-{	
+Tank::Tank() : Tank(52.0, 42.0, 18000.0, 400.0, 64.4, 100.0) {}
+
+Tank::Tank(double hullTraverseRate, double turretTraverseRate, double weight, double horsepower, double maxVel, double brakeForce)
+{
+    this->hullTraverseRate = hullTraverseRate * DEG_TO_RAD;
+    this->horsepower = horsepower;
+    this->weight = weight;
+    this->brakeForce = brakeForce;
+    this->maxVel = maxVel * KPH_TO_PXS;
+    this->turretTraverseRate = turretTraverseRate * DEG_TO_RAD;
+
     moveState = orienter(0);
     hullRotation = 0;
-    hullTraverseRate = 54 * DEG_TO_RAD;
+    
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
-    horsepower = 400;
-    weight = 18000;
-    brakeForce = 100;
+    
     velocity = 0;
-    maxVel = 64.4 * KPH_TO_PXS;
-    tankX[0] = -3.32/2*M_TO_PX; tankX[1] = 3.32/2*M_TO_PX; tankX[2] = 3.32/2*M_TO_PX; tankX[3] = -3.32/2*M_TO_PX;
-    tankY[0] = -6.75/2*M_TO_PX; tankY[1] =  -6.75/2*M_TO_PX; tankY[2] = 6.75/2*M_TO_PX; tankY[3] = 6.75/2*M_TO_PX;
+    
+    tankX[0] = -3.32 / 2 * M_TO_PX; tankX[1] = 3.32 / 2 * M_TO_PX; tankX[2] = 3.32 / 2 * M_TO_PX; tankX[3] = -3.32 / 2 * M_TO_PX;
+    tankY[0] = -6.75 / 2 * M_TO_PX; tankY[1] = -6.75 / 2 * M_TO_PX; tankY[2] = 6.75 / 2 * M_TO_PX; tankY[3] = 6.75 / 2 * M_TO_PX;
 
-    turretVertX[0] = -0.8/2*M_TO_PX; turretVertX[1] = -turretVertX[0]; turretVertX[2] = turretVertX[1]; turretVertX[3] = turretVertX[0];
-    turretVertY[0] = 0; turretVertY[1] = 0; turretVertY[2] = 7*M_TO_PX; turretVertY[3] = 7*M_TO_PX;
-
-    turretTraverseRate = 42*DEG_TO_RAD;
+    turretVertX[0] = -0.8 / 2 * M_TO_PX; turretVertX[1] = -turretVertX[0]; turretVertX[2] = turretVertX[1]; turretVertX[3] = turretVertX[0];
+    turretVertY[0] = 0; turretVertY[1] = 0; turretVertY[2] = 7 * M_TO_PX; turretVertY[3] = 7 * M_TO_PX;
 }
 
 void Tank::setAcc(double deltaTime)
