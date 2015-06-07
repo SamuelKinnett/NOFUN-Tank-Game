@@ -44,32 +44,32 @@ void Tank::setAcc(double deltaTime)
 
 void Tank::moveFwd()
 {
-    moveState = orienter(moveState | orienter::fwd);
+    moveState = orienter(moveState | orienter::FWD);
 }
 void Tank::moveBwd()
 {
-    moveState = orienter(moveState | orienter::bwd);
+    moveState = orienter(moveState | orienter::BWD);
 }
 void Tank::moveBrk()
 {
-    moveState = orienter(moveState | orienter::brake);
+    moveState = orienter(moveState | orienter::BRAKE);
 }
 void Tank::traverseLeft()
 {
-    moveState = orienter(moveState | orienter::left);
+    moveState = orienter(moveState | orienter::LEFT);
 }
 void Tank::traverseRight()
 {
-    moveState = orienter(moveState | orienter::right);
+    moveState = orienter(moveState | orienter::RIGHT);
 }
 void Tank::turretRotate(double angle)
 {
-    moveState = orienter(moveState | orienter::tRot);
+    moveState = orienter(moveState | orienter::T_ROT);
     turretAngleTarget = angle;
 }
 void Tank::turretRotateTo(double angle)
 {
-    moveState = orienter(moveState | orienter::tRot);
+    moveState = orienter(moveState | orienter::T_ROT);
     turretAngleTarget = fmod(angle - turretRot, 2 * PI);
 }
 
@@ -109,12 +109,12 @@ void Tank::update(double deltaTime)
 {
     //sets acceleration based on various parameters
     setAcc(deltaTime);
-    if(moveState & brake)
+    if(moveState & BRAKE)
     {
         moving = false;
         velocity *= pow(brakeForce, -deltaTime);
     }
-    else if(moveState & fwd) //forward
+    else if(moveState & FWD) //forward
     {
         moving = true;
         velocity += acceleration;
@@ -123,7 +123,7 @@ void Tank::update(double deltaTime)
             velocity = maxVel;
         }
     }
-    else if(moveState & bwd) //backward, only allow one motion
+    else if(moveState & BWD) //backward, only allow one motion
     {
         moving = true;
         velocity -= acceleration;
@@ -137,17 +137,17 @@ void Tank::update(double deltaTime)
         moving = false;
         velocity *= pow(1.95, -deltaTime);
     }
-    if(moveState & right) //turn right
+    if(moveState & RIGHT) //turn right
     {
         hullRotation += hullTraverseRate * deltaTime;
         hullRotation = fmod(hullRotation, 2*PI);
     }
-    if(moveState & left) //turn left
+    if(moveState & LEFT) //turn left
     {
         hullRotation -= hullTraverseRate * deltaTime;
         hullRotation = fmod(hullRotation, 2*PI);
     }
-    if (moveState & tRot) {
+    if (moveState & T_ROT) {
         double turretRemain = turretAngleTarget;
 
         if(turretRemain > turretTraverseRate*deltaTime)

@@ -51,15 +51,15 @@ class Tank : public MultiplayerObject, public Drawable
         void setAcc(double);
         enum orienter
         {
-            left = 1<<0,
-            right = 1<<1,
-            fwd = 1<<2,
-            bwd = 1<<3,
-            brake = 1<<4,
-            front = 1<<5,
-            sides = 1<<6,
-            rear = 1<<7,
-            tRot = 1<<8
+            LEFT = 1<<0,
+            RIGHT = 1<<1,
+            FWD = 1<<2,
+            BWD = 1<<3,
+            BRAKE = 1<<4,
+            FRONT = 1<<5,
+            SIDES = 1<<6,
+            REAR = 1<<7,
+            T_ROT = 1<<8
         };
     private:
         double turretRot = 0;
