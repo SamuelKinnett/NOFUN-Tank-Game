@@ -2,8 +2,8 @@
 
 //==============================================================================
 //Include guard
-#ifndef __AABB_INCLUDED__
-#define __AABB_INCLUDED__
+#ifndef _AABB_HPP_INCLUDED_
+#define _AABB_HPP_INCLUDED_
 //==============================================================================
 //Class definition
 

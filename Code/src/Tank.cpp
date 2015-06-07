@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../include/tank.h"
+#include "../include/Tank.hpp"
 
 //static constants
 const double Tank::PI = 3.14159265358979323846;
@@ -12,22 +12,22 @@ Tank::Tank()
 {	
     moveState = orienter(0);
     hullRotation = 0;
-    hullTraverseRate = 18 * DEG_TO_RAD;
+    hullTraverseRate = 54 * DEG_TO_RAD;
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
-    horsepower = 500;
-    weight = 47800;
+    horsepower = 400;
+    weight = 18000;
     brakeForce = 100;
     velocity = 0;
-    maxVel = 34 * KPH_TO_PXS;
+    maxVel = 64.4 * KPH_TO_PXS;
     tankX[0] = -3.32/2*M_TO_PX; tankX[1] = 3.32/2*M_TO_PX; tankX[2] = 3.32/2*M_TO_PX; tankX[3] = -3.32/2*M_TO_PX;
     tankY[0] = -6.75/2*M_TO_PX; tankY[1] =  -6.75/2*M_TO_PX; tankY[2] = 6.75/2*M_TO_PX; tankY[3] = 6.75/2*M_TO_PX;
 
     gunVertX[0] = -0.8/2*M_TO_PX; gunVertX[1] = -gunVertX[0]; gunVertX[2] = gunVertX[1]; gunVertX[3] = gunVertX[0];
     gunVertY[0] = 0; gunVertY[1] = 0; gunVertY[2] = 7*M_TO_PX; gunVertY[3] = 7*M_TO_PX;
 
-    gunTraverseRate = 0.1*DEG_TO_RAD;
+    gunTraverseRate = 42*DEG_TO_RAD;
 }
 
 void Tank::setAcc(double deltaTime)

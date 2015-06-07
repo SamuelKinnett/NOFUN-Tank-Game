@@ -1,4 +1,4 @@
-#include "../include/EventQueue.h"
+#include "../include/EventQueue.hpp"
 
 EventQueue::EventQueue()
 {

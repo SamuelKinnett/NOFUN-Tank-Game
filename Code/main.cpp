@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <GLFW/glfw3.h>
-#include "include/tank.h"
+#include "include/Tank.hpp"
 
 const int VERSION = 1;
 

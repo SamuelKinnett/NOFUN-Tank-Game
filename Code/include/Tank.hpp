@@ -2,11 +2,11 @@
 
 //==============================================================================
 //Include guard
-#ifndef __TANK_INCLUDED__
-#define __TANK_INCLUDED__
+#ifndef _TANK_HPP_INCLUDED_
+#define _TANK_HPP_INCLUDED_
 //==============================================================================
 //Included dependencies
-#include "AABB.h"
+#include "AABB.hpp"
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include <iostream>

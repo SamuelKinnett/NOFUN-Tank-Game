@@ -2,10 +2,10 @@
 
 //==============================================================================
 //Include guard
-#ifndef __EVENTQUEUE_INCLUDED__
-#define __EVENTQUEUE_INCLUDED__
+#ifndef _EVENTQUEUE_HPP_INCLUDED_
+#define _EVENTQUEUE_HPP_INCLUDED_
 //Included dependencies
-#include "Event.h"
+#include "Event.hpp"
 #include <stddef.h>
 #include <vector>
 //==============================================================================
