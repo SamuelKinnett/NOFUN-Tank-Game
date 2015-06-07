@@ -1,4 +1,6 @@
 #pragma once
+#ifndef _TANK_HPP_INCLUDED_
+#define _TANK_HPP_INCLUDED_
 
 //Included dependencies
 #include "AABB.hpp"
@@ -29,6 +31,7 @@ class Tank : public MultiplayerObject
         void traverseRight();
 
         void turretRotate(double);
+        void turretRotateTo(double);
 
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
@@ -52,7 +55,7 @@ class Tank : public MultiplayerObject
             front = 1<<5,
             sides = 1<<6,
             rear = 1<<7,
-            gRot = 1<<8
+            tRot = 1<<8
         };
     private:
         double turretRot = 0;
@@ -85,3 +88,5 @@ class Tank : public MultiplayerObject
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
 };
+
+#endif
