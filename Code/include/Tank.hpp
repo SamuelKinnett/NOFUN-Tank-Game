@@ -1,18 +1,15 @@
-//A class describing a tank
-
-//==============================================================================
 //Include guard
 #ifndef _TANK_HPP_INCLUDED_
 #define _TANK_HPP_INCLUDED_
-//==============================================================================
+
 //Included dependencies
 #include "AABB.hpp"
 #include "Drawable.hpp"
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-//==============================================================================
-//Class definition
+
+//A class describing a tank
 class Tank : public Drawable
 {
     public:

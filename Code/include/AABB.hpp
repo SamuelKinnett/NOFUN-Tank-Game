@@ -1,12 +1,8 @@
-//A class describing an axis aligned bounding box
-
-//==============================================================================
 //Include guard
 #ifndef _AABB_HPP_INCLUDED_
 #define _AABB_HPP_INCLUDED_
-//==============================================================================
-//Class definition
 
+//A class describing an axis aligned bounding box
 class AABB
 {
 	int min[2];	//Top left corner

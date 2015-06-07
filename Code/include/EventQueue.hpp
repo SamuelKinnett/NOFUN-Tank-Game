@@ -1,6 +1,3 @@
-//This class implements an event queue using a simple array
-
-//==============================================================================
 //Include guard
 #ifndef _EVENTQUEUE_HPP_INCLUDED_
 #define _EVENTQUEUE_HPP_INCLUDED_
@@ -8,7 +5,8 @@
 #include "Event.hpp"
 #include <stddef.h>
 #include <vector>
-//==============================================================================
+
+//This class implements an event queue using a simple array
 class EventQueue
 {
     public:
