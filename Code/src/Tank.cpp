@@ -21,13 +21,13 @@ Tank::Tank(double hullTraverseRate, double turretTraverseRate, double weight, do
 
     moveState = orienter(0);
     hullRotation = 0;
-    
+
     positionX = positionY = 0;
     hp = maxHP = 1000;
     moving = false;
-    
+
     velocity = 0;
-    
+
     tankX[0] = -3.32 / 2 * M_TO_PX; tankX[1] = 3.32 / 2 * M_TO_PX; tankX[2] = 3.32 / 2 * M_TO_PX; tankX[3] = -3.32 / 2 * M_TO_PX;
     tankY[0] = -6.75 / 2 * M_TO_PX; tankY[1] = -6.75 / 2 * M_TO_PX; tankY[2] = 6.75 / 2 * M_TO_PX; tankY[3] = 6.75 / 2 * M_TO_PX;
 
@@ -64,11 +64,28 @@ void Tank::traverseRight()
 }
 void Tank::turretRotate(double angle)
 {
-    moveState = orienter(moveState | orienter::gRot);
+    moveState = orienter(moveState | orienter::tRot);
     turretAngleTarget = angle;
 }
+void Tank::turretRotateTo(double angle)
+{
+    moveState = orienter(moveState | orienter::tRot);
+    turretAngleTarget = fmod(angle - turretRot, 2 * PI);
+}
 
-void Tank::setPos(double x, double y) 
+void Tank::target(MultiplayerObject& t)
+{
+    double cx = t.getPosX() - positionX;
+    double cy = t.getPosY() - positionY;
+    double c = cos(turretRot + hullRotation);
+    double s = sin(turretRot + hullRotation);
+    double x = -cx * c - cy * s;
+    double y = cy * c - cx * s;
+    double angle = atan2(x, y);
+    turretRotate(angle);
+}
+
+void Tank::setPos(double x, double y)
 {
     positionX = x;
     positionY = y;
@@ -124,7 +141,7 @@ void Tank::update(double deltaTime)
         hullRotation -= hullTraverseRate * deltaTime;
         hullRotation = fmod(hullRotation, 2*PI);
     }
-    if(moveState & gRot) {
+    if (moveState & tRot) {
         double turretRemain = turretAngleTarget;
 
         if(turretRemain > turretTraverseRate*deltaTime)

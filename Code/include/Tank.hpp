@@ -22,7 +22,7 @@ class Tank : public MultiplayerObject
 
         void setPos(double x, double y);
         void setRot(double angle);
-        
+
         void moveFwd();
         void moveBwd();
         void moveBrk();
@@ -32,6 +32,7 @@ class Tank : public MultiplayerObject
 
         void turretRotate(double);
         void turretRotateTo(double);
+        void target(MultiplayerObject&);
 
         double getPosX() { return positionX; }
         double getPosY() { return positionY; }
