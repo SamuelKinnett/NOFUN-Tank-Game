@@ -1,6 +1,4 @@
-//Include guard
-#ifndef _AABB_HPP_INCLUDED_
-#define _AABB_HPP_INCLUDED_
+#pragma once
 
 //A class describing an axis aligned bounding box
 class AABB
@@ -12,5 +10,3 @@ class AABB
 		bool CheckCollision(AABB);
 		void MoveBB(float, float);
 };
-
-#endif

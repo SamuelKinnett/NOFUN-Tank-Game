@@ -63,6 +63,16 @@ void Tank::turretRotate(double angle)
     turretAngleTarget = angle;
 }
 
+void Tank::setPos(double x, double y) 
+{
+    positionX = x;
+    positionY = y;
+}
+void Tank::setRot(double angle)
+{
+    hullRotation = angle;
+}
+
 //This method should be called every time the main update loop runs and updates
 //the tank's variables
 //deltaTime is used to make a simple Euler Integrator to ensure framerate

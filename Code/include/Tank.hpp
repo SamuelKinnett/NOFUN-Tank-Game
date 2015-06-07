@@ -1,22 +1,23 @@
-//Include guard
-#ifndef _TANK_HPP_INCLUDED_
-#define _TANK_HPP_INCLUDED_
+#pragma once
 
 //Included dependencies
 #include "AABB.hpp"
-#include "Drawable.hpp"
+#include "MultiplayerObject.hpp"
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 //A class describing a tank
-class Tank : public Drawable
+class Tank : public MultiplayerObject
 {
     public:
         Tank();
         void update(double);
         void processKeys(GLFWwindow*, double, double);
         void draw();
+
+        void setPos(double x, double y);
+        void setRot(double angle);
         
         void moveFwd();
         void moveBwd();
@@ -82,5 +83,3 @@ class Tank : public Drawable
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
 };
-
-#endif
