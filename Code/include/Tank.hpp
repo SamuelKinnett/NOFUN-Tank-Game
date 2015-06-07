@@ -7,12 +7,13 @@
 //==============================================================================
 //Included dependencies
 #include "AABB.hpp"
+#include "Drawable.hpp"
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 //==============================================================================
 //Class definition
-class Tank
+class Tank : public Drawable
 {
     public:
         Tank();
