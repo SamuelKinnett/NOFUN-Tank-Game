@@ -71,6 +71,11 @@ int main(int argc, char** argv)
 
 
     Tank tnk(90, 42, 18000, 1000, 90, 100), tnk2;
+    tnk2.moveFwd();
+    tnk2.update(1);
+    tnk2.traverseLeft();
+    tnk2.target(tnk);
+    tnk2.update(0.5);
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
     double cx, cy, tx, ty;
@@ -108,14 +113,14 @@ int main(int argc, char** argv)
         glfwSetWindowTitle(window, buf); //print frametime to window title
 
         glfwGetCursorPos(window, &cx, &cy);
-        cx -= tx;
+        cx -= tx; //translate cursor corrdinates
         cy -= ty;
         tnk.processKeys(window, cx, cy);
         tnk.update(dt);
         
         //tnk2.moveFwd();
         tnk2.target(tnk);
-        tnk2.update(dt);
+        tnk2.interpolate(dt);
     }
     glfwDestroyWindow(window);
     glfwTerminate();

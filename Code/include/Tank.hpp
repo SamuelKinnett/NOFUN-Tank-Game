@@ -40,6 +40,8 @@ class Tank : public MultiplayerObject, public Drawable
         double getHullRotation() { return hullRotation; }
         double getVel() { return velocity; }
 
+        void interpolate(double deltaTime);
+
         const static double PI;
         const static double DEG_TO_RAD;
         const static double RAD_TO_DEG;
@@ -67,6 +69,8 @@ class Tank : public MultiplayerObject, public Drawable
         double tankX[4], tankY[4];
         //moveState is a bit field that represents all move options using an enum
         orienter moveState = orienter(0);
+        //a bit field representing the last known state of moves
+        orienter lastMoveState = moveState;
         //General Information
         double hullRotation = 0, turretFacing = 0, hullTraverseRate = 0, turretTraverseRate = 0;
         //The angle that the hull and turret are facing, in radians, and the

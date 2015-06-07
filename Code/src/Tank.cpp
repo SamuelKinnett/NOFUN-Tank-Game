@@ -85,6 +85,12 @@ void Tank::target(const MultiplayerObject& t)
     turretRotate(angle);
 }
 
+void Tank::interpolate(double deltaTime)
+{
+    moveState = lastMoveState;
+    update(deltaTime);
+}
+
 void Tank::setPos(double x, double y)
 {
     positionX = x;
@@ -162,6 +168,7 @@ void Tank::update(double deltaTime)
     //Move the tank
     positionX += -sin(hullRotation) * velocity * deltaTime;
     positionY += cos(hullRotation) * velocity * deltaTime;
+    lastMoveState = moveState;
     moveState = orienter(0); //reset moveState to contain bits set
 }
 
