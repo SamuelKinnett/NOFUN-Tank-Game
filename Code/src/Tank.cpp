@@ -160,18 +160,15 @@ void Tank::draw()
     glPopMatrix();
 }
 
-void Tank::processKeys(GLFWwindow* window)
+void Tank::processKeys(GLFWwindow* window, double cursorX, double cursorY)
 {
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
-
-    xpos -= positionX;
-    ypos -= positionY;
+    cursorX -= positionX;
+    cursorY -= positionY;
 
     double c = cos(turretRot+hullRotation);
     double s = sin(turretRot+hullRotation);
-    double x = -(xpos * c + ypos * s);
-    double y = ypos * c - xpos * s;
+    double x = -cursorX * c - cursorY * s;
+    double y = cursorY * c - cursorX * s;
     double angle = atan2(x, y); //swap x & y for correct angle because turret is pointing upwards
     turretRotate(angle);
 

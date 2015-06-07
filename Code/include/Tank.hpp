@@ -18,9 +18,9 @@ class Tank : public Drawable
     public:
         Tank();
         void update(double);
-        void processKeys(GLFWwindow*);
+        void processKeys(GLFWwindow*, double, double);
         void draw();
-
+        
         void moveFwd();
         void moveBwd();
         void moveBrk();

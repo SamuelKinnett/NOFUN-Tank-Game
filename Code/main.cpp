@@ -70,9 +70,10 @@ int main(int argc, char** argv)
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-    Tank tnk;
+    Tank tnk, tnk2;
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
+    double cx, cy, tx, ty;
     char buf[32];
     while(!glfwWindowShouldClose(window))
     {
@@ -90,9 +91,12 @@ int main(int argc, char** argv)
 
         glColor3d(0, 0, 0);
         glPushMatrix();
-        //glTranslatef(-tnk.getPosX()+width/2.0-sin(-tnk.getHullRotation())*tnk.getVel()*0.25, -tnk.getPosY()+height/2.0-cos(-tnk.getHullRotation())*tnk.getVel()*0.25, 0);
-
+        tx = -tnk.getPosX() + width / 2.0 - sin(-tnk.getHullRotation())*tnk.getVel()*0.25;
+        ty = -tnk.getPosY() + height / 2.0 - cos(-tnk.getHullRotation())*tnk.getVel()*0.25;
+        glTranslatef(tx, ty, 0);
+        
         tnk.draw();
+        tnk2.draw();
         glPopMatrix();
 
         glfwSwapBuffers(window);
@@ -103,7 +107,10 @@ int main(int argc, char** argv)
         sprintf(buf, "%fms", dt*1000);
         glfwSetWindowTitle(window, buf); //print frametime to window title
 
-        tnk.processKeys(window);
+        glfwGetCursorPos(window, &cx, &cy);
+        cx -= tx;
+        cy -= ty;
+        tnk.processKeys(window, cx, cy);
         tnk.update(dt);
     }
     glfwDestroyWindow(window);
