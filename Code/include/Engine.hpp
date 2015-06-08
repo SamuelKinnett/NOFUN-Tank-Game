@@ -7,7 +7,7 @@
 class Engine : public Module
 {
     public:
-        virtual void step(double deltaTime)
+        virtual void update(double deltaTime)
         {
             
         }

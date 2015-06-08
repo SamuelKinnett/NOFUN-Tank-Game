@@ -5,7 +5,7 @@
 class Module
 {
     public:
-        virtual void step(double deltaTime) = 0;
+        virtual void update(double deltaTime) = 0;
 
         //enum describing if a module is damaged
         enum damage 
