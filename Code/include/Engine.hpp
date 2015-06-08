@@ -7,10 +7,18 @@
 class Engine : public Module
 {
     public:
+        Engine();
         virtual void update(double deltaTime)
         {
             
         }
+
+        virtual void copyState(const Engine& e)
+        {
+
+        }
+    private:
+
 };
 
 #endif
