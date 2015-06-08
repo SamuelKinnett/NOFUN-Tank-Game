@@ -6,7 +6,8 @@ class Module
 {
     public:
         virtual void update(double deltaTime) = 0;
-        virtual void copyState(const Module&) = 0;
+        //virtual void readStream(Stream) = 0;
+        //virtual void writeStream(Stream) = 0;
 
         //enum describing if a module is damaged
         enum damage 

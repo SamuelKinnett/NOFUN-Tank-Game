@@ -12,11 +12,6 @@ class Engine : public Module
         {
             
         }
-
-        virtual void copyState(const Engine& e)
-        {
-
-        }
     private:
 
 };
