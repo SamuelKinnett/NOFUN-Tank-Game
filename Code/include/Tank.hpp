@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _TANK_HPP_INCLUDED_
-#define _TANK_HPP_INCLUDED_
+#ifndef TANK_HPP_INCLUDED_
+#define TANK_HPP_INCLUDED_
 
 //Included dependencies
 #include "AABB.hpp"
@@ -16,6 +16,10 @@ class Tank : public MultiplayerObject, public Drawable
     public:
         Tank();
         Tank(double, double, double, double, double, double);
+        virtual ~Tank()
+        {
+
+        }
 
         void update(double);
         void processKeys(GLFWwindow*, double, double);
@@ -35,10 +39,10 @@ class Tank : public MultiplayerObject, public Drawable
         void turretRotateTo(double);
         void target(const MultiplayerObject&);
 
-        double getPosX() const { return positionX; }
-        double getPosY() const { return positionY; }
-        double getHullRotation() { return hullRotation; }
-        double getVel() { return velocity; }
+        double getPosX() const { return _positionX; }
+        double getPosY() const { return _positionY; }
+        double getHullRotation() { return _hullRotation; }
+        double getVel() { return _velocity; }
 
         void interpolate(double deltaTime);
 
@@ -62,37 +66,37 @@ class Tank : public MultiplayerObject, public Drawable
             T_ROT = 1<<8
         };
     private:
-        double turretRot = 0;
-        double turretAngleTarget = 0;
-        double turretVertX[4], turretVertY[4];
+        double _turretRot = 0;
+        double _turretAngleTarget = 0;
+        double _turretVertX[4], _turretVertY[4];
         //tank coordinates
-        double tankX[4], tankY[4];
-        //moveState is a bit field that represents all move options using an enum
-        orienter moveState = orienter(0);
+        double _tankX[4], _tankY[4];
+        //_moveState is a bit field that represents all move options using an enum
+        orienter _moveState = orienter(0);
         //a bit field representing the last known state of moves
-        orienter lastMoveState = moveState;
+        orienter _lastMoveState = _moveState;
+
         //General Information
-        double hullRotation = 0, turretFacing = 0, hullTraverseRate = 0, turretTraverseRate = 0;
+
         //The angle that the hull and turret are facing, in radians, and the
         //rate at which both rotate in radians per tick
-        double positionX = 0, positionY = 0;
+        double _hullRotation = 0, _turretFacing = 0, _hullTraverseRate = 0, _turretTraverseRate = 0;
         //The X and Y co-ordinates of the tank
-        int hp = 0, maxHP = 0;
+        double _positionX = 0, _positionY = 0;
         //The health points that the tank has currently and the absolute maximum
-        //health
-        float armour [3];
+        int _hp = 0, _maxHP = 0;
         //The armour of the tank, in the format front, sides, rear
-
+        float _armour [3];
         //Weapon Information
-        int currentAmmo [3], maxAmmo [3], damage [3], penetration [3];
         //Information about the tank's ammo, in the format AP, APCR, HE
+        int _currentAmmo [3], _maxAmmo [3], _damage [3], _penetration [3];
 
         //Engine/Movement Information
-        bool moving = false;
-        //Is the tank currently moving?
-        double horsepower = 0, weight = 0, velocity = 0, maxVel = 0, acceleration = 0, brakeForce = 0;
+        //Is the tank currently _moving?
+        bool _moving = false;
         //The horsepower of the engine, the weight of the tank, its current speed
         //and its top speed
+        double _horsepower = 0, _weight = 0, _velocity = 0, _maxVel = 0, _acceleration = 0, _brakeForce = 0;
 };
 
 #endif

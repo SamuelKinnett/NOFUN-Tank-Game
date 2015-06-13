@@ -10,7 +10,7 @@ class Module
         //virtual void writeStream(Stream) = 0;
 
         //enum describing if a module is damaged
-        enum damage 
+        enum damage
         {
             USABLE,
             DAMAGED,
@@ -18,37 +18,37 @@ class Module
         };
         damage getDamageState()
         {
-            return damageState;
+            return _damageState;
         }
         double getHP()
         {
-            return HP;
+            return _HP;
         }
         double getMaxHP()
         {
-            return maxHP;
+            return _maxHP;
         }
         void hit(double pen, double dmg)
         {
             if (pen >= penDurability)
             {
-                HP -= dmg;
+                _HP -= dmg;
             }
-            if (HP < 0) {
-                HP = 0;
-                damageState = BROKEN;
+            if (_HP < 0) {
+                _HP = 0;
+                _damageState = BROKEN;
             }
-            else if (HP < maxHP / 2)
+            else if (_HP < _maxHP / 2)
             {
-                damageState = DAMAGED;
+                _damageState = DAMAGED;
             }
         }
     private:
-        damage damageState;
-        double HP;
-        double maxHP;
+        damage _damageState;
+        double _HP;
+        double _maxHP;
         //penetration needed to damage the module
-        double penDurability;
+        double _penDurability;
 };
 
 #endif

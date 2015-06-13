@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _AABB_HPP_INCLUDED_
-#define _AABB_HPP_INCLUDED_
+#ifndef AABB_HPP_INCLUDED_
+#define AABB_HPP_INCLUDED_
 
 //A class describing an axis aligned bounding box
 class AABB

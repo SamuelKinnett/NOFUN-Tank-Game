@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _MULTIPLAYEROBJECT_HPP_INCLUDED_
-#define _MULTIPLAYEROBJECT_HPP_INCLUDED_
+#ifndef MULTIPLAYEROBJECT_HPP_INCLUDED_
+#define MULTIPLAYEROBJECT_HPP_INCLUDED_
 
 #include "Drawable.hpp"
 
@@ -12,6 +12,7 @@ class MultiplayerObject
         virtual double getPosX() const = 0;
         virtual double getPosY() const = 0;
         virtual void interpolate(double deltaTime) = 0;
+        virtual ~MultiplayerObject();
 };
 
 #endif
