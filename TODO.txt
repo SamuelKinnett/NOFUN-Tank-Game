@@ -9,4 +9,5 @@ Roadmap:
 	make each track move individually
 	realistically simulate turning (one track moves slower)
 + Make tanks have a mesh for more detail (GL_TRIANGLE_FAN)
-+ Multiplayer (Client + Server, syncing)
++ Collision + Textures + VBOs
++ Multiplayer (Client + Server, syncing) - always keep this in mind when designing the above
