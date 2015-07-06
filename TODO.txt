@@ -1,20 +1,12 @@
-- Implement more precise collision box
-	axis aligned bounding box is enough for rough checking
-
-- Make tanks have a mesh for more detail (GL_TRIANGLE_FAN)
-
-- Prepare tanks for textures
-
-- Do we need subclasses from tanks for TD/Heavy/Med/Light?
-
-- Modules class
+Roadmap:
++ Modules
 	Gun, Tracks, Radio, AmmoRack, Engine
-
-- Improve movement:
++ Improve movement:
 	different gear ratios
 	base acceleration on rpm
 	make acceleration decrease as high RPM is reached
 	separate movement from main tanks
 	make each track move individually
 	realistically simulate turning (one track moves slower)
-	
++ Make tanks have a mesh for more detail (GL_TRIANGLE_FAN)
++ Multiplayer (Client + Server, syncing)
