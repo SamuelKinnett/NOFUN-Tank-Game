@@ -1,4 +1,3 @@
-#pragma once
 #ifndef DRAWABLE_HPP_INCLUDED_
 #define DRAWABLE_HPP_INCLUDED_
 

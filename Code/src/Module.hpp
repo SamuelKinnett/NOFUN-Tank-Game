@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _MODULE_HPP_INCLUDED_
 #define _MODULE_HPP_INCLUDED_
 

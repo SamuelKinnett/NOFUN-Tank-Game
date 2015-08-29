@@ -1,4 +1,4 @@
-#include "../include/AABB.hpp"
+#include "AABB.hpp"
 
 //This method checks to see if the passed bounding box will collide with this
 bool AABB::CheckCollision(AABB otherBox)

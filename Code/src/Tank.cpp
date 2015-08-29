@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../include/Tank.hpp"
+#include "Tank.hpp"
 
 //static constants
 const double Tank::PI = 3.14159265358979323846;

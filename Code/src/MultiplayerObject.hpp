@@ -1,8 +1,5 @@
-#pragma once
 #ifndef MULTIPLAYEROBJECT_HPP_INCLUDED_
 #define MULTIPLAYEROBJECT_HPP_INCLUDED_
-
-#include "Drawable.hpp"
 
 class MultiplayerObject
 {

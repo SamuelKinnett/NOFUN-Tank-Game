@@ -1,4 +1,3 @@
-#pragma once
 #ifndef AABB_HPP_INCLUDED_
 #define AABB_HPP_INCLUDED_
 

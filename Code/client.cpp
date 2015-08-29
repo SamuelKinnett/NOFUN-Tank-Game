@@ -1,9 +1,7 @@
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include <GLFW/glfw3.h>
-#include "include/Tank.hpp"
+#include "src/Tank.hpp"
 
 const int VERSION = 1;
 

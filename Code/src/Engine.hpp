@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _ENGINE_HPP_INCLUDED_
 #define _ENGINE_HPP_INCLUDED_
 
@@ -13,13 +12,17 @@ class Engine : public Module
             _numGears = numGears;
             _gears = new double[numGears];
         }
+
+    ~Engine() {
+        delete[] _gears;
+    }
         virtual void update(double deltaTime)
         {
 
         }
     private:
         int _rpm;
-        int _gear;
+    double *_gears;
         int _numGears;
         double *_gearRatios;
 };

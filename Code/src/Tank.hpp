@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TANK_HPP_INCLUDED_
 #define TANK_HPP_INCLUDED_
 
