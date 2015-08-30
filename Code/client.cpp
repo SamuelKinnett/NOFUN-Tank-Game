@@ -69,11 +69,6 @@ int main(int argc, char** argv)
 
 
     Tank tnk(90, 42, 18000, 1000, 90, 100), tnk2;
-    tnk2.moveFwd();
-    tnk2.update(1);
-    tnk2.traverseLeft();
-    tnk2.target(tnk);
-    tnk2.update(0.5);
     glfwSetTime(0); //reset time before entering game loop
     double dt = 0; //time
     double cx, cy, tx, ty;
@@ -118,7 +113,12 @@ int main(int argc, char** argv)
         
         //tnk2.moveFwd();
         tnk2.target(tnk);
-        tnk2.interpolate(dt);
+        if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+            tnk2.moveFwd();
+
+        }
+        tnk2.update(dt);
+
     }
     glfwDestroyWindow(window);
     glfwTerminate();

@@ -1,4 +1,4 @@
-#include "MultiplayerObject.hpp"
+#include "MultiplayerObject.h"
 
 MultiplayerObject::~MultiplayerObject()
 {

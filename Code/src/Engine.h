@@ -1,7 +1,7 @@
 #ifndef _ENGINE_HPP_INCLUDED_
 #define _ENGINE_HPP_INCLUDED_
 
-#include "Module.hpp"
+#include "Module.h"
 #include <stdarg.h>
 
 class Engine : public Module
