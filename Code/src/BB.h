@@ -1,5 +1,5 @@
-#ifndef BB_HPP_INCLUDED
-#define BB_HPP_INCLUDED
+#ifndef NTG_BB_H
+#define NTG_BB_H
 
 //Implements a Bounding Box with a rotation
 class BB

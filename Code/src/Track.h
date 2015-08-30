@@ -1,5 +1,5 @@
-#ifndef _TRACK_HPP_INCLUDED_
-#define _TRACK_HPP_INCLUDED_
+#ifndef NTG_TRACK_H
+#define NTG_TRACK_H
 
 #include "Module.h"
 

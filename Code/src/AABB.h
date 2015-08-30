@@ -1,5 +1,5 @@
-#ifndef AABB_HPP_INCLUDED_
-#define AABB_HPP_INCLUDED_
+#ifndef NTG_AABB_H
+#define NTG_AABB_H
 
 //A class describing an axis aligned bounding box
 class AABB {

@@ -1,5 +1,5 @@
-#ifndef _MODULE_HPP_INCLUDED_
-#define _MODULE_HPP_INCLUDED_
+#ifndef NTG_MODULE_H
+#define NTG_MODULE_H
 
 class Module {
 public:

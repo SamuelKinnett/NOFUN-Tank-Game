@@ -1,5 +1,5 @@
-#ifndef TANK_HPP_INCLUDED_
-#define TANK_HPP_INCLUDED_
+#ifndef NTG_TANK_H
+#define NTG_TANK_H
 
 //Included dependencies
 #include "AABB.h"
