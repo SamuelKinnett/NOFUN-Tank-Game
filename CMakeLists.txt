@@ -19,9 +19,7 @@ set(SOURCE_FILES
         Code/src/Tank.cpp
         Code/src/util/lodepng.cpp
         Code/src/util/lodepng.h
-        Code/client.cpp
-        Code/src/DrawableStructure.cpp
-        Code/src/DrawableStructure.h)
+        Code/client.cpp)
 
 add_executable(ntg ${SOURCE_FILES})
 target_link_libraries(ntg GL glfw)
